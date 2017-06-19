@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+        <title>Git crash course</title>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown="git-crash-course.md" data-separator-vertical="^\r?\n-----\r?\n$"></section>
+			</div>
+		</div>
+		<script src="js/head.min.js"></script>
+		<script src="js/reveal.js"></script><script>
+Reveal.initialize({
+    width: "100%",
+	height: "100%",
+	margin: 0.1,
+	minScale: 1,
+	maxScale: 1,
+    slideNumber: true,
+    history: true,
+    center: false,
+    dependencies: [
+		{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'plugin/zoom-js/zoom.js', async: true },
+		{ src: 'plugin/notes/notes.js', async: true },
+		{ src: 'plugin/math/math.js', async: true }
+	]
+});
+		</script>
+	</body>
+</html>
