@@ -1,6 +1,6 @@
 # Git crash course
 
-## Davide Alberani <da@erlug.linux.it>
+## Davide Alberani <da@erlug.linux.it> 2017
 
 <br />
 Non-corso per non prendere a martellate il monitor quando usate Git.
@@ -19,7 +19,7 @@ Questo non è ancora chiaro...
 
 ## Cosa verrà trattato
 
-* i comandi essenziali (porcelain)
+* i comandi essenziali (porcelain) da riga di comando
 * come gestire i branch
 * le basi per lavorare con repository remoti
 
@@ -28,8 +28,10 @@ Questo non è ancora chiaro...
 ## Cosa NON verrà trattato
 
 * gli internals (plumbing) di Git
+* le GUI
 * usi avanzati
-* GitHub (sorry)
+* GitHub e simili (sorry)
+* no, davvero: neanche l'ombra di una pull request, qui
 * amministrazione di un repository remoto
 * flame wars sui workflow
 
