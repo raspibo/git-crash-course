@@ -52,7 +52,7 @@ Il resto lo spiega meglio Wikipedia: https://it.wikipedia.org/wiki/Git%5F%28soft
 
 * non è Subversion o CVS
 * non è un sistema di backup
-* un sistema per fare deploy (o magari sì, ma rifletteteci)
+* non è un sistema per fare deploy (o magari sì, ma rifletteteci)
 
 -----
 
