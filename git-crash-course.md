@@ -50,6 +50,7 @@ Il resto lo spiega meglio Wikipedia: https://it.wikipedia.org/wiki/Git%5F%28soft
 
 * non è Subversion o CVS
 * non è un sistema di backup
+* un sistema per fare deploy (o magari sì, ma rifletteteci)
 
 -----
 
@@ -57,7 +58,7 @@ Il resto lo spiega meglio Wikipedia: https://it.wikipedia.org/wiki/Git%5F%28soft
 
 *Git non avrà segreti per voi, una volta compreso...*
 
-* ...il data model (objects, trees, commits, refs, tags, ...)
+* ...il data model (objects, blobs, trees, commits, refs, tags, ...)
 * ...il fatto che tutto è locale
 * ...che i commit sono in realtà snapshot, e non delta rispetto allo stato precedente
 * ...una qualche astrusa teoria a caso
@@ -82,7 +83,7 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 ---
 
-## Le basi: prepariamoci
+## Le basi: prepariamo l'ambieo l'ambiente
 
     $ git config --global user.name "Davide Alberani"
     $ git config --global user.email da@erlug.linux.it
@@ -118,7 +119,7 @@ Clonare un repository remoto esistente:
 
 ### Bonus track
 
-* i repository remoti vengono creati con **--bare** e sono privi di working directory
+* i repository remoti vengono di norma creati con **--bare** e non hanno working directory
 * si può posizionare la directory .git in un altro path con **--separate-git-dir**
 
 ---
@@ -155,6 +156,8 @@ Committiamolo:
 
 -----
 
+## Le basi: add e commit
+
 <br />
 
 ### Cosa è successo?
@@ -183,7 +186,7 @@ I commit hash sono generati partendo da: messaggio, committer, author, dates, tr
 ### Bonus track
 
 * .gitignore per ignorare certi file
-* è possibile abbreviarli, purché rimangano univoci.
+* è possibile abbreviare gli hash, purché rimangano univoci.
 * vedere https://blog.thoughtram.io/git/2014/11/18/the-anatomy-of-a-git-commit.html
 * e anche https://git-scm.com/book/it/v2/Git-Internals-Git-References
 
@@ -205,9 +208,9 @@ Un tag è un puntatore ad un commit:
 
 ## Le basi: la history
 
-    $ git log [--stat] [-p] [--graph] [--decorate] [--color] [-2]
+    $ git log [--stat] [--patch] [--graph] [--decorate] [--color] [-2]
 
-Rappresenta la storia dei commit dal punto corrente (o da/a qualsiasi punto indicato).
+Rappresenta la storia dei commit fino al punto corrente (o da/a qualsiasi punto indicato).
 
 Si può limitare agli ultimi N commit con **-N**
 
@@ -264,6 +267,10 @@ Riportare un file modificato nell'ultimo stato committato/staged:
 
     $ git checkout -- file
 
+-----
+
+## Aggiustare i danni: più forte
+
 Ho fatto un casino nella working directory.  Riportiamo tutto allo stato dell'ultimo commit:
 
     $ git reset --hard HEAD
@@ -292,11 +299,15 @@ Eliminarne uno:
 
     $ git stash drop stash@{0}
 
+## Quando usarlo?
+
+Ad esempio quando vogliamo passare ad un altro branch, accantonando le modifiche nella working directory.
+
 ---
 
 ## Storico dei cambiamenti: reflog
 
-La history mostra solo i commit incluse in in branch.
+La history mostra solo i commit inclusi in un branch.
 
 Per vedere tutto ciò che è successo:
 
@@ -319,7 +330,7 @@ Servono a separare diversi filoni di sviluppo e ad integrare i contributi di alt
 
 -----
 
-## Branches: sperimentiamo!
+## Branches: creazione
 
 Creare un branch:
 
@@ -332,6 +343,10 @@ Visualizzare tutti i branch:
 Cancellare un branch locale:
 
     $ git branch -d [--force] fix/bug-123
+
+-----
+
+## Branches: spostiamoci
 
 Spostarsi su un branch:
 
@@ -347,7 +362,7 @@ Creare e spostarsi in un singolo comando:
 
 * **master** è solamente un default
 
-* fate caso all'asterisco, è il branch corrente
+* fate caso all'asterisco: è il branch corrente
 
 * dare nomi significativi; prefissi: bugfix/, fix/, improvement/, feature/, task/
 
@@ -359,7 +374,7 @@ Creare e spostarsi in un singolo comando:
 
 ---
 
-## Spostarsi
+## Spostarsi tra i commit
 
 Salire di 3 livelli, seguendo sempre il primo parent commit (in caso di merge):
 
@@ -375,7 +390,7 @@ Salire di un livello, seguendo il secondo parent commit (in caso di merge):
 
 * cosa è HEAD: reference al branch (o commit) corrente
 * questi operatori sono concatenabili: HEAD~~^2
-* double/tripe dot ranges: git log master..branch; git log --left-right master...branch
+* double/tripe dot ranges: git log master..branch; git log --left-right master...branch: https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif
 
 ---
 
@@ -394,7 +409,7 @@ Partendo da master:
 
 ### Cosa è successo?
 
-fast-forward! master era più indietro rispetto a fix/bug-123, e quindi abbiamo semplicemente spostato master.
+fast-forward! master era più indietro rispetto a fix/bug-123, e quindi abbiamo semplicemente spostato il puntatore master.
 
 Non è stato neppure creato un nuovo commit.
 
@@ -481,7 +496,7 @@ Tutti i commit specifici di fix/bug-123 sono cambiati.
 
 ### Quando usarlo?
 
-A spostare più commit e/o a porsi nella condizione di fare un merge pulito, mantenendo una history lineare.
+Quando dovete spostare più commit e/o per porvi nella condizione di fare un merge pulito, mantenendo una history lineare.
 
 <br />
 
@@ -575,14 +590,12 @@ Questo perché se qualcuno sta lavorando sullo stesso branch remoto, romperete t
 
 ## Idee sparse
 
-Gestire file grandi:
-* https://git-lfs.github.com/
-* https://git-annex.branchable.com/
+* gestire file grandi: https://git-lfs.github.com/
+* gestire file grandi (alternativa): https://git-annex.branchable.com/
+* gestire la propria directory /etc: etckeeper
+* gestire repository multipli: https://source.android.com/source/using-repo
 
-Gestire la propria directory /etc:
-* etckeeper
-
-<br />
+-----
 
 ## Pezzi mancanti
 
