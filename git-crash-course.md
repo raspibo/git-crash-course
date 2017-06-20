@@ -85,7 +85,7 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 ---
 
-## Le basi: prepariamo l'ambieo l'ambiente
+## Le basi: prepariamo l'ambiente
 
     $ git config --global user.name "Davide Alberani"
     $ git config --global user.email da@erlug.linux.it
@@ -550,7 +550,7 @@ Aggiornare il repository locale con i dati di un remoto:
 
 Differenze tra il master locale e quello remoto:
 
-    $ git log master..origin/master
+    $ git log master...origin/master
 
 Scaricare gli aggiornamenti dal remoto e mergiare il branch corrente:
 
