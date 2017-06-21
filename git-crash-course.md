@@ -41,7 +41,8 @@ Questo non è ancora chiaro...
 
 Un sistema di controllo versione distribuito.
 
-Serve per tener traccia dei cambiamenti al proprio codice e per facilitare lo sviluppo condiviso.
+Serve per tener traccia dei cambiamenti al proprio codice e per facilitare lo sviluppo condiviso. Va ricordato che Git è nato soprattutto per aiutare chi deve integrare il codice altrui, e non tanto per il singolo sviluppatore.
+
 
 <br />
 Il resto lo spiega meglio Wikipedia: https://it.wikipedia.org/wiki/Git%5F%28software%29
