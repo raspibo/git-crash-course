@@ -358,6 +358,12 @@ Creare e spostarsi in un singolo comando:
 
     $ git checkout -b fix/bug-123
 
+<br />
+
+# Bonus track
+
+* nello spostarsi, Git cerca di mantenere i cambiamenti presenti nella working directory
+
 -----
 
 ## Branches: approfondiamo
