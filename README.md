@@ -6,10 +6,14 @@ Bozza di corso su Git per RaspiBO.
 
 Sì, ringraziamo npm, node, reveal.js e chiunque pensi che tutto ciò sia una buona idea, se ci troviamo nella disgraziata situazione di dover buildare ed eseguire delle slides.
 
-Lanciate:
+Lanciate, attendete lo scaricamento di 240 lievissimi MB di incomprensibili dipendenze:
     $ ./run.sh
 
 e vivete felici non ponendovi domande sul perché di tutto ciò.
+
+## Oppure...
+
+Le slides sono in formato markdown, e possono essere [visualizzate direttamente](git-crash-course.md)
 
 ## Licenza
 
