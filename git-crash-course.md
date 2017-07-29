@@ -13,7 +13,19 @@ This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 Inte
 
 ## A chi è rivolto
 
-Questo non è ancora chiaro...
+A chi si trova a volere/dovere usare Git, ed è ancora alle prime armi.
+
+---
+
+## Parte 1
+
+Un workflow basato sui merge, da applicare senza porsi troppe domande.
+
+---
+
+## Parte 2
+
+Una serie di strumenti avanzati, per chi ci ha preso gusto e vuole approfondire lo strumento.
 
 ---
 
@@ -29,9 +41,6 @@ Questo non è ancora chiaro...
 
 * gli internals (plumbing) di Git
 * le GUI
-* usi avanzati
-* GitHub e simili (sorry)
-* no, davvero: neanche l'ombra di una pull request, qui
 * amministrazione di un repository remoto
 * flame wars sui workflow
 
@@ -96,9 +105,15 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 ### Bonus track
 
-* cercare un esempio di ~/.gitconfig avanzato
+* cercare un esempio di ~/.gitconfig avanzato, con qualche alias per i comandi principali
 
----
+-----
+
+## Parte 1
+
+In cui forniamo un workflow precotto per chi non vuole porsi troppe domande, adatto allo sviluppo in solitaria o con pochi altri contributori.
+
+-----
 
 ## Le basi: creare un repository
 
@@ -174,7 +189,6 @@ Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nos
 * git rm, git mv
 * come scrivere un messaggio di commit che non susciti sgomento?
 * le directory vuote non vengono salvate: .gitkeep / .gitignore
-* git add --patch
 
 ---
 
@@ -237,15 +251,6 @@ Per vedere quanto è stato posto in staging area:
 
     $ git diff --staged
 
-<br />
-
-### Bonus track
-
-è possibile creare e riapplicare una patch usando i comandi:
-
-    $ git format-patch [refs]
-    $ git apply patch-file.diff
-
 ---
 
 ## Scopriamo chi incolpare!
@@ -281,47 +286,6 @@ Ho fatto un casino nella working directory.  Riportiamo tutto allo stato dell'ul
 Voglio creare un nuovo commit che annulla le modifiche introdotte da un commit precedente:
 
     $ git revert [-n] <commit>
-
----
-
-## Mettere il lavoro da parte: stash
-
-Capita di dover mettere da parte il lavoro nella directory corrente senza voler committare:
-
-    $ git stash
-
-Vedere la lista:
-
-    $ git stash list
-
-Riapplicare una modifica messa in stash:
-
-    $ git stash pop [stash]
-
-Eliminarne uno:
-
-    $ git stash drop stash@{0}
-
-## Quando usarlo?
-
-Ad esempio quando vogliamo passare ad un altro branch, accantonando le modifiche nella working directory.
-
----
-
-## Storico dei cambiamenti: reflog
-
-La history mostra solo i commit inclusi in un branch.
-
-Per vedere tutto ciò che è successo:
-
-    $ git reflog [--relative-date]
-
-<br />
-
-### Quando usarlo?
-
-* a volte è utile capire come ci siamo mossi tra i branch
-* fondamentale per recuperare i **broken commits** (non referenziati da alcun branch)
 
 ---
 
@@ -370,36 +334,11 @@ Creare e spostarsi in un singolo comando:
 ## Branches: approfondiamo
 
 * **master** è solamente un default
-
 * fate caso all'asterisco: è il branch corrente
-
 * dare nomi significativi; prefissi: bugfix/, fix/, improvement/, feature/, task/
-
 * aggiungere issue di riferimento
-
 * **refs**: nome collettivo per riferirsi ad HEAD, branches, tags
-
 * **detached HEAD**: ci siamo spostati su un commit che non è l'head di un branch
-
----
-
-## Spostarsi tra i commit
-
-Salire di 3 livelli, seguendo sempre il primo parent commit (in caso di merge):
-
-    $ git checkout HEAD~3
-
-Salire di un livello, seguendo il secondo parent commit (in caso di merge):
-
-    $ git checkout HEAD^2
-
-<br />
-
-### Bonus track
-
-* cosa è HEAD: reference al branch (o commit) corrente
-* questi operatori sono concatenabili: HEAD~~^2
-* double/tripe dot ranges: git log master..branch; git log --left-right master...branch: https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif
 
 ---
 
@@ -411,8 +350,13 @@ Partendo da master:
     $ # editiamo nuovofile.txt
     $ git add nuovofile.txt
     $ git commit
+
+TODO: immagine con lo stato corrente
+
     $ git checkout master
     $ git merge fix/bug-123
+
+TODO: immagine con lo stato corrente
 
 <br />
 
@@ -446,6 +390,8 @@ Mergiamo:
     $ # risolviamo i conflitti
     $ git add file.txt
     $ git commit
+
+TODO: immagine con lo stato corrente
 
 -----
 
@@ -632,4 +578,83 @@ Questo perché se qualcuno sta lavorando sullo stesso branch remoto, romperete t
 
 * bash prompt: https://github.com/magicmonty/bash-git-prompt
 * Meld: http://meldmerge.org/
+
+
+-----
+
+XXX: MOVE TO PART 2
+
+* git add --patch
+
+-
+
+<br />
+
+### Bonus track
+
+è possibile creare e riapplicare una patch usando i comandi:
+
+    $ git format-patch [refs]
+    $ git apply patch-file.diff
+
+-
+
+## Mettere il lavoro da parte: stash
+
+Capita di dover mettere da parte il lavoro nella directory corrente senza voler committare:
+
+    $ git stash
+
+Vedere la lista:
+
+    $ git stash list
+
+Riapplicare una modifica messa in stash:
+
+    $ git stash pop [stash]
+
+Eliminarne uno:
+
+    $ git stash drop stash@{0}
+
+## Quando usarlo?
+
+Ad esempio quando vogliamo passare ad un altro branch, accantonando le modifiche nella working directory.
+
+-
+
+## Storico dei cambiamenti: reflog
+
+La history mostra solo i commit inclusi in un branch.
+
+Per vedere tutto ciò che è successo:
+
+    $ git reflog [--relative-date]
+
+<br />
+
+### Quando usarlo?
+
+* a volte è utile capire come ci siamo mossi tra i branch
+* fondamentale per recuperare i **broken commits** (non referenziati da alcun branch)
+
+-
+
+## Spostarsi tra i commit
+
+Salire di 3 livelli, seguendo sempre il primo parent commit (in caso di merge):
+
+    $ git checkout HEAD~3
+
+Salire di un livello, seguendo il secondo parent commit (in caso di merge):
+
+    $ git checkout HEAD^2
+
+<br />
+
+### Bonus track
+
+* cosa è HEAD: reference al branch (o commit) corrente
+* questi operatori sono concatenabili: HEAD~~^2
+* double/tripe dot ranges: git log master..branch; git log --left-right master...branch: https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif
 
