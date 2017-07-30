@@ -17,11 +17,15 @@ A chi si trova a volere/dovere usare Git, ed è ancora alle prime armi.
 
 ---
 
+## Struttura del corso
+
+<br />
+
 ## Parte 1
 
-Un workflow basato sui merge, da applicare senza porsi troppe domande.
+Le basi per lavorare in locale e collaborare con altri usando il forking workflow, da applicare senza porsi troppe domande.
 
----
+<br />
 
 ## Parte 2
 
@@ -113,6 +117,8 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 In cui forniamo un workflow precotto per chi non vuole porsi troppe domande, adatto allo sviluppo in solitaria o con pochi altri contributori.
 
+Iniziamo lavorando in locale, per poi vedere come interagire con altri sviluppatori.
+
 -----
 
 ## Le basi: creare un repository
@@ -127,11 +133,9 @@ Clonare un repository remoto esistente:
 
 -----
 
-## Le basi: creare un repository
+## creare un repository: cosa è successo?
 
-### Cosa è successo?
-
-È stata creata la directory **.git** (il **repository**); se abbiamo fatto un clone, sono stati aggiunti i riferimenti al remote alla configurazione.
+È stata creata la directory **.git** (il **repository**); se abbiamo fatto un clone, sono stati aggiunti i riferimenti al remote.
 
 <br />
 
@@ -160,6 +164,8 @@ Vedere lo stato del sistema:
 
 * **Staged**: nella staging area, pronti per il prossimo commit
 
+TODO: disegnino
+
 ---
 
 ## Le basi: add e commit
@@ -171,6 +177,10 @@ Modifichiamo un file ed aggiungiamolo alla staging area:
 Committiamolo:
 
     $ git commit [-m "messaggio di commit"]
+
+Verifichiamo quanto accaduto:
+
+    $ git log
 
 -----
 
@@ -194,7 +204,7 @@ Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nos
 
 ## Cosa sono i commit
 
-Sono uno snapshot dell'intero stato del sistema in un dato momento, identificati da un hash.
+Sono uno snapshot dell'intero stato del sistema in un dato momento, **identificati da un hash**.
 
 I commit hash sono generati partendo da: messaggio, committer, author, dates, tree, parent hash.
 
@@ -219,7 +229,7 @@ Un tag è un puntatore ad un commit:
 
 ### Bonus track
 
-* esistono sia i tag lightweight che annotated. La differenza principale è che i primi sono solo dei puntatori, i secondi sono oggetti completi: hanno un author e possono essere firmati.
+* esistono sia i tag *lightweight* che *annotated*. La differenza principale è che i primi sono solo dei puntatori, i secondi sono oggetti completi: hanno un author e possono essere firmati.
 
 ---
 
@@ -250,14 +260,6 @@ Modifichiamo un file, senza aggiungerlo alla staging area:
 Per vedere quanto è stato posto in staging area:
 
     $ git diff --staged
-
----
-
-## Scopriamo chi incolpare!
-
-Annotare un file con chi ha effettuato l'ultima modifica riga per riga:
-
-    $ git blame file.txt
 
 ---
 
@@ -325,20 +327,21 @@ Creare e spostarsi in un singolo comando:
 
 <br />
 
-# Bonus track
+### Bonus track
 
-* nello spostarsi, Git cerca di mantenere i cambiamenti presenti nella working directory
+* nello spostarsi, Git cerca di mantenere i cambiamenti presenti nella working directory e nella staging area
 
 -----
 
 ## Branches: approfondiamo
 
 * **master** è solamente un default
+
 * fate caso all'asterisco: è il branch corrente
-* dare nomi significativi; prefissi: bugfix/, fix/, improvement/, feature/, task/
-* aggiungere issue di riferimento
+
+* dare nomi significativi; usate prefissi (bugfix/, fix/, improvement/, feature/, task/) e issue di riferimento
+
 * **refs**: nome collettivo per riferirsi ad HEAD, branches, tags
-* **detached HEAD**: ci siamo spostati su un commit che non è l'head di un branch
 
 ---
 
@@ -358,11 +361,11 @@ TODO: immagine con lo stato corrente
 
 TODO: immagine con lo stato corrente
 
-<br />
+---
 
-### Cosa è successo?
+## Merge: cosa è successo?
 
-fast-forward! master era più indietro rispetto a fix/bug-123, e quindi abbiamo semplicemente spostato il puntatore master.
+**fast-forward**! master era più indietro rispetto a fix/bug-123, e quindi abbiamo semplicemente spostato il puntatore master.
 
 Non è stato neppure creato un nuovo commit.
 
@@ -397,87 +400,13 @@ TODO: immagine con lo stato corrente
 
 ## Conflict files
 
-Cercare sempre tutti i markers <<<<<<<, =======, >>>>>>>
+Cercare sempre tutti i markers **<<<<<<<**, **=======**, **>>>>>>>**
 
 <br />
 
 ### Bonus track
 
 * potete usare **meld** come GUI per risolvere i conflitti
-
----
-
-## Rimettere insieme i pezzi: cherry-pick
-
-    $ git cherry-pick <commit>
-    $ # in caso di conflitti:
-    $ git cherry-pick --continue
-
-<br />
-
-### Cosa è successo?
-
-Si sono prese le modifiche introdotte dai commit elencati, e sono state riapplicate sul branch corrente.
-Sono stati creati dei nuovi commit.
-
-<br />
-
-### Quando usarlo?
-
-Ad esempio per backportare un fix su diversi release branch, o se vi siete accorti che un certo commit era da fare su un altro branch.
-
----
-
-## Rimettere insieme i pezzi: rebase
-
-Poniamoci nella stessa situazione divergente dell'esempio in cui abbiamo usato merge, e poi:
-
-    $ git checkout fix/bug-123
-    $ git rebase master
-    $ # risolviamo eventuali conflitti
-    $ git rebase --continue
-
-<br />
-
-### Cosa è successo?
-
-Abbiamo preso tutti i commit di fix/bug-123 e li abbiamo ri-applicati su master, che nel mentre era andato avanti.
-
-Tutti i commit specifici di fix/bug-123 sono cambiati.
-
------
-
-## Rebase
-
-### Quando usarlo?
-
-Quando dovete spostare più commit e/o per porvi nella condizione di fare un merge pulito, mantenendo una history lineare.
-
-<br />
-
-### Quando NON usarlo?
-
-MAI MAI MAI rebasare dei commit che sono stati condivisi su altri repositori.
-
----
-
-## Modificare la history
-
-Creiamo un nuovo branch e committiamo 2 o 3 modifiche.  Poi:
-
-    $ git rebase -i master
-
-<br />
-
-### Cosa è successo?
-
-Abbiamo accorpato, scartato o invertito l'ordine dei commit.
-
-<br />
-
-### Bonus track
-
-* l'opzione nucleare: **filter-branch** per creare script che riscrivono la history.
 
 ---
 
@@ -491,9 +420,9 @@ Abbiamo accorpato, scartato o invertito l'ordine dei commit.
 ## Bonus track
 
 * **origin** è solamente un default
-* associazione tra branch remoti e locali
+* l'associazione tra branch remoti e locali viene effettuata in automatico, in base al nome del branch
 
----
+-----
 
 ## Fetch & pull
 
@@ -537,67 +466,206 @@ Aggiungiamo i cambiamenti locali ad un branch remoto:
 
 ## Parlando della history remota...
 
-Cosa da non fare **MAI** (salvo non ne siate davvero convinti): pushare modifiche alla history.
+Cosa da non fare **MAI** (salvo non ne siate davvero convinti): modificare una history che sia già stata pushata.
 
-Questo perché se qualcuno sta lavorando sullo stesso branch remoto, romperete tutto.
+Questo perché se qualcuno sta lavorando sullo stesso branch remoto, le altre persone si troveranno con dei repository non consistenti.
 
 ---
 
-## Idee sparse
+## Workflow di sviluppo
 
-* gestire file grandi: https://git-lfs.github.com/
-* gestire file grandi (alternativa): https://git-annex.branchable.com/
-* gestire la propria directory /etc: etckeeper
-* gestire repository multipli: https://source.android.com/source/using-repo
+Nello scegliere un workflow dovrete rispondere ad alcune domande, quali:
+
+* chi parteciperà allo sviluppo? Vengono accettati contributi da esterni o solo da un gruppo ristretto?
+* qual è il mio modello di rilascio del software? Ho versioni multiple da manutenere? A partire da quanti/quali branch verranno rilasciate le nuove versioni del mio software?
+* chi si occuperà dell'integrazione? Gli sviluppatori stessi o una figura dedicata?
 
 -----
 
-## Pezzi mancanti
+## Worflows: le alternative
 
-* git submodule
-* git bisect
-* git gui; gitk
-* workflows!
+I principali sono:
+
+* centralized
+* feature branch
+* gitflow
+* forking
+* qualcosa tenuto insieme con gli elastici
+
+Valide risorse:
+
+* https://www.atlassian.com/git/tutorials/comparing-workflows
+* https://guides.github.com/introduction/flow/
 
 ---
 
-## Risorse
+## Forking workflow
 
-### Per imparare
+Vediamo il **forking workflow**. Non perché sia intrinsecamente il migliore, ma perché quello più diffuso nello sviluppo su piattaforme come Github. Presupposti:
 
-* Pro Git: https://git-scm.com/book/en/v2
-* Reference: https://git-scm.com/docs
-* Learn Git Brancing: http://learngitbranching.js.org/
-* Git ready: http://gitready.com/
-* Git Cookbook: https://git.seveas.net/
-* tutorial di Atlassian: https://www.atlassian.com/git/tutorials
+* esiste un repository ufficiale di riferimento su cui solo gli autori principali possono scrivere
+* i contributi di terzi sono accettati
+* ruolo di **project maintainer**: la persona che si occuperà di mergiare nel repository principale
+* ruolo di **developer**: chi sta sviluppando un fix o una nuova feature
+* ciascun developer avrà un fork remoto del repository ufficiale ed una copia locale su cui lavorare
+
+-----
+
+## Forking workflow: setup
+
+Partiamo dal presupposto che il project maintainer abbia creato il repository ufficiale remoto e il proprio clone locale.
+
+Il developer ora:
+
+* crea un **fork** remoto del repository ufficiale
+* fa un **clone** locale del proprio repository remoto
 
 <br />
 
-### Utilità
+## Bonus track
 
-* bash prompt: https://github.com/magicmonty/bash-git-prompt
-* Meld: http://meldmerge.org/
-
+* un fork altro non è che un clone (--mirror) di un repository, sempre ospitato sul sito remoto
 
 -----
 
-XXX: MOVE TO PART 2
+## Forking workflow: iniziamo lo sviluppo
 
-* git add --patch
+Poniamo che developer voglia sviluppare un fix che andrà applicato sul branch master del repository ufficiale.
 
--
+Nel clone locale del *proprio* fork, farà:
+
+    $ git checkout master
+    $ git pull
+    $ git checkout -b fix/bug-123
+    $ # introduce il fix
+    $ git commit
+    $ git push --set-upstream origin fix/bug-123
+
+Ora va sulla pagina web del proprio fork e crea una **pull request**.
+
+-----
+
+## Forking workflow: pull request
+
+Pull request **NON** è un concetto base di Git (non esattamente, almeno). È qualcosa che vi è stato costruito sopra per facilitare la collaborazione tra sviluppatori.
+
+La pull request creata in precedenza dice: "propongo di applicare i commit del branch *developer-fork:fix/bug-123* a *repository-ufficiale:master*"
+Ora developer, project maintainer e altri possono discuterne.
+
+Se dovesse essere necessario, developer può aggiungere altri commit semplicemente con un nuovo push.
+
+-----
+
+## Forking workflow: merging
+
+Una volta soddisfatti, project maintainer potrà effettuare il merge del codice su *repository-ufficiale:master*.
+
+Se il merge non presenta conflitti, lo si può fare direttamente dalla GUI web sul repository ufficiale.  Altrimenti il project maintainer dovrà fare il fetch di developer-fork:fix/bug-123 sul proprio clone locale, effettuare il merge su master per poi farne il push sul repository ufficiale.
+
+---
+
+## Parte 2
+
+In cui forniremo una serie di strumenti avanzati.
+
+---
+
+## Spostarsi tra i commit
+
+Salire di 3 livelli, seguendo sempre il primo parent commit (in caso di merge):
+
+    $ git checkout HEAD~3
+
+Salire di un livello, seguendo il secondo parent commit (in caso di merge):
+
+    $ git checkout HEAD^2
+
+### Bonus track
+
+* cosa è HEAD: reference al branch (o commit) corrente
+* **detached HEAD**: ci siamo spostati su un commit che non è l'head di un branch
+* questi operatori sono concatenabili: HEAD~~^2
+* double/tripe dot ranges: git log master..branch; git log --left-right master...branch: https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif
+
+---
+
+## Rimettere insieme i pezzi: cherry-pick
+
+    $ git cherry-pick <commit>
+    $ # in caso di conflitti:
+    $ git cherry-pick --continue
+
+### Cosa è successo?
+
+Si sono prese le modifiche introdotte dai commit elencati, e sono state riapplicate sul branch corrente.
+Sono stati creati dei nuovi commit.
+
+<br />
+
+### Quando usarlo?
+
+Ad esempio per backportare un fix su diversi release branch, o se vi siete accorti che un certo commit era da fare su un altro branch.
+
+---
+
+## Rimettere insieme i pezzi: rebase
+
+Poniamoci nella stessa situazione divergente dell'esempio in cui abbiamo usato merge, e poi:
+
+    $ git checkout fix/bug-123
+    $ git rebase master
+    $ # risolviamo eventuali conflitti
+    $ git rebase --continue
+
+<br />
+
+### Cosa è successo?
+
+Abbiamo preso tutti i commit di fix/bug-123 e li abbiamo ri-applicati su master, che nel mentre era andato avanti.
+
+Tutti i commit specifici di fix/bug-123 sono cambiati.
+
+-----
+
+## Rebase
+
+### Quando usarlo?
+
+Quando dovete spostare più commit e/o per porvi nella condizione di fare un merge pulito. Questo può essere fatto dal developer prima di aprire una pull request per semplificare il lavoro al maintainer e/o dal maintainer stesso prima del merge, per ottenere una history lineare.
+
+<br />
+
+### Quando NON usarlo?
+
+Un rebase modifica i commit originali: questo va evitato se quei commit sono già stati pushati ed altri sviluppatori li stanno usando come base per il proprio lavoro.
+
+---
+
+## Modificare la history
+
+Creiamo un nuovo branch e committiamo 2 o 3 modifiche.  Poi:
+
+    $ git rebase -i master
+
+<br />
+
+### Cosa è successo?
+
+Abbiamo accorpato, scartato o invertito l'ordine dei commit.
 
 <br />
 
 ### Bonus track
 
-è possibile creare e riapplicare una patch usando i comandi:
+* l'opzione nucleare: **filter-branch** per creare script che riscrivono la history.
 
-    $ git format-patch [refs]
-    $ git apply patch-file.diff
+---
 
--
+## Lavoro incompleto: committare a pezzi
+
+* git add --patch
+
+---
 
 ## Mettere il lavoro da parte: stash
 
@@ -621,7 +689,16 @@ Eliminarne uno:
 
 Ad esempio quando vogliamo passare ad un altro branch, accantonando le modifiche nella working directory.
 
--
+---
+
+## Creare e applicare patch
+
+è possibile creare e riapplicare una patch usando i comandi:
+
+    $ git format-patch [refs]
+    $ git apply patch-file.diff
+
+---
 
 ## Storico dei cambiamenti: reflog
 
@@ -638,23 +715,47 @@ Per vedere tutto ciò che è successo:
 * a volte è utile capire come ci siamo mossi tra i branch
 * fondamentale per recuperare i **broken commits** (non referenziati da alcun branch)
 
--
+-----
 
-## Spostarsi tra i commit
+## Idee sparse
 
-Salire di 3 livelli, seguendo sempre il primo parent commit (in caso di merge):
+* gestire file grandi: https://git-lfs.github.com/
+* gestire file grandi (alternativa): https://git-annex.branchable.com/
+* gestire la propria directory /etc: etckeeper
+* gestire repository multipli: https://source.android.com/source/using-repo
 
-    $ git checkout HEAD~3
+-----
 
-Salire di un livello, seguendo il secondo parent commit (in caso di merge):
+## Pezzi mancanti
 
-    $ git checkout HEAD^2
+* git submodule
+* git bisect
+* git gui; gitk
+
+---
+
+## Risorse
+
+### Per imparare
+
+* Pro Git: https://git-scm.com/book/en/v2
+* Reference: https://git-scm.com/docs
+* Learn Git Brancing: http://learngitbranching.js.org/
+* Git ready: http://gitready.com/
+* Git Cookbook: https://git.seveas.net/
+* tutorial di Atlassian: https://www.atlassian.com/git/tutorials
 
 <br />
 
-### Bonus track
+### Utilità
 
-* cosa è HEAD: reference al branch (o commit) corrente
-* questi operatori sono concatenabili: HEAD~~^2
-* double/tripe dot ranges: git log master..branch; git log --left-right master...branch: https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif
+* bash prompt: https://github.com/magicmonty/bash-git-prompt
+* Meld: http://meldmerge.org/
 
+---
+
+## The end
+
+<br />
+
+## ?
