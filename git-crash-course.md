@@ -387,6 +387,8 @@ Partendo da master:
     $ git add file.txt
     $ git commit
 
+TODO: immagine con lo stato corrente
+
 Mergiamo:
 
     $ git merge fix/bug-123
@@ -520,6 +522,8 @@ Il developer ora:
 * crea un **fork** remoto del repository ufficiale
 * fa un **clone** locale del proprio repository remoto
 
+TODO: immagine dei repo e delle persone
+
 <br />
 
 ## Bonus track
@@ -570,22 +574,37 @@ In cui forniremo una serie di strumenti avanzati.
 
 ---
 
-## Spostarsi tra i commit
+## Referenziare i commit
 
 Salire di 3 livelli, seguendo sempre il primo parent commit (in caso di merge):
 
-    $ git checkout HEAD~3
+    $ git log -1 HEAD~3
 
 Salire di un livello, seguendo il secondo parent commit (in caso di merge):
 
-    $ git checkout HEAD^2
+    $ git log -1 HEAD^2
 
 ### Bonus track
 
 * cosa è HEAD: reference al branch (o commit) corrente
 * **detached HEAD**: ci siamo spostati su un commit che non è l'head di un branch
 * questi operatori sono concatenabili: HEAD~~^2
-* double/tripe dot ranges: git log master..branch; git log --left-right master...branch: https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif
+
+-----
+
+## Referenziare i commit: range
+
+double dot range:
+
+    $ git log master..branch
+
+triple dot range:
+
+    $ git log --left-right master...branch
+
+TODO: disegno
+
+https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif
 
 ---
 
@@ -594,6 +613,8 @@ Salire di un livello, seguendo il secondo parent commit (in caso di merge):
     $ git cherry-pick <commit>
     $ # in caso di conflitti:
     $ git cherry-pick --continue
+
+TODO: immagine con lo stato corrente
 
 ### Cosa è successo?
 
@@ -616,6 +637,8 @@ Poniamoci nella stessa situazione divergente dell'esempio in cui abbiamo usato m
     $ git rebase master
     $ # risolviamo eventuali conflitti
     $ git rebase --continue
+
+TODO: immagine con lo stato corrente
 
 <br />
 
@@ -646,6 +669,8 @@ Un rebase modifica i commit originali: questo va evitato se quei commit sono gi�
 Creiamo un nuovo branch e committiamo 2 o 3 modifiche.  Poi:
 
     $ git rebase -i master
+
+TODO: immagine con lo stato corrente
 
 <br />
 
@@ -715,7 +740,7 @@ Per vedere tutto ciò che è successo:
 * a volte è utile capire come ci siamo mossi tra i branch
 * fondamentale per recuperare i **broken commits** (non referenziati da alcun branch)
 
------
+---
 
 ## Idee sparse
 
@@ -738,9 +763,9 @@ Per vedere tutto ciò che è successo:
 
 ### Per imparare
 
-* Pro Git: https://git-scm.com/book/en/v2
+* Pro Git: https://git-scm.com/book/en/
 * Reference: https://git-scm.com/docs
-* Learn Git Brancing: http://learngitbranching.js.org/
+* Learn Git Branching: http://learngitbranching.js.org/
 * Git ready: http://gitready.com/
 * Git Cookbook: https://git.seveas.net/
 * tutorial di Atlassian: https://www.atlassian.com/git/tutorials
@@ -759,3 +784,7 @@ Per vedere tutto ciò che è successo:
 <br />
 
 ## ?
+
+<br />
+<br />
+## Davide Alberani <da@erlug.linux.it>
