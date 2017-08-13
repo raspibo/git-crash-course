@@ -146,6 +146,8 @@ Clonare un repository remoto esistente:
 
 ---
 
+<!-- .slide: class="two-cols" -->
+
 ## Le basi: status
 
 Vedere lo stato del sistema:
@@ -164,7 +166,7 @@ Vedere lo stato del sistema:
 
 * **Staged**: nella staging area, pronti per il prossimo commit
 
-TODO: disegnino
+<img style="width:300px" src="images/file-states.png" data-action="zoom">
 
 ---
 
@@ -265,7 +267,7 @@ Per vedere quanto è stato posto in staging area:
 
 ## Aggiustare i danni
 
-Modificare l'ultimo commit (ad esempio per aggiungere un file, modificare il commit message o l'autore):
+Modificare l'ultimo commit (aggiungere un file, modificare il commit message o l'autore, ...):
 
     $ git commit --amend [--author="Name Surname <user@example.com>"]
 
@@ -354,12 +356,12 @@ Partendo da master:
     $ git add nuovofile.txt
     $ git commit
 
-TODO: immagine con lo stato corrente
+<img style="width:300px" src="images/branch-commit.png" data-action="zoom">
 
     $ git checkout master
     $ git merge fix/bug-123
 
-TODO: immagine con lo stato corrente
+<img style="width:300px" src="images/branch-ff.png" data-action="zoom">
 
 ---
 
