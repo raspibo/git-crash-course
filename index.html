@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/zoom.css">
 		<link rel="stylesheet" href="css/theme/white.css">
         <title>Git crash course</title>
 
@@ -8,6 +9,10 @@
 
 .slides {
     margin-top: 5px !important;
+}
+
+.two-cols ul, .two-cols h3 {
+    float: left;
 }
 
         </style>
@@ -19,7 +24,11 @@
 			</div>
 		</div>
 		<script src="js/head.min.js"></script>
-		<script src="js/reveal.js"></script><script>
+		<script src="js/reveal.js"></script>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/transition.js"></script>
+		<script src="js/zoom.min.js"></script>
+        <script>
 Reveal.initialize({
     width: "100%",
 	height: "100%",
