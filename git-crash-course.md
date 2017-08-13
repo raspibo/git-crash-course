@@ -389,7 +389,11 @@ Partendo da master:
     $ git add file.txt
     $ git commit
 
-TODO: immagine con lo stato corrente
+<img style="width:300px" src="images/branch-conflict.png" data-action="zoom">
+
+-----
+
+## Risoluzione dei conflitti
 
 Mergiamo:
 
@@ -398,7 +402,7 @@ Mergiamo:
     $ git add file.txt
     $ git commit
 
-TODO: immagine con lo stato corrente
+<img style="width:300px" src="images/branch-conflict-solved.png" data-action="zoom">
 
 -----
 
