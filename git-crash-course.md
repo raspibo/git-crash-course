@@ -511,26 +511,33 @@ Valide risorse:
 
 Vediamo il **forking workflow**. Non perché sia intrinsecamente il migliore, ma perché quello più diffuso nello sviluppo su piattaforme come Github. Presupposti:
 
-* esiste un repository ufficiale di riferimento su cui solo gli autori principali possono scrivere
+* esiste un repository ufficiale (chiamiamolo **upstream**) di riferimento su cui solo gli autori principali possono scrivere
 * i contributi di terzi sono accettati
 * ruolo di **project maintainer**: la persona che si occuperà di mergiare nel repository principale
 * ruolo di **developer**: chi sta sviluppando un fix o una nuova feature
-* ciascun developer avrà un fork remoto del repository ufficiale ed una copia locale su cui lavorare
+* ciascun developer avrà un fork remoto del repository upstream ed una copia locale su cui lavorare
 
 -----
 
-## Forking workflow: setup
+## Forking workflow: maintainer setup
 
-Partiamo dal presupposto che il project maintainer abbia creato il repository ufficiale remoto e il proprio clone locale.
+Il project maintainer ha creato il repository upstream remoto e il proprio clone locale.
+
+Maintainer:
+
+* git clone
+
+<img style="width:300px" src="images/worflow-maintainer-clone.png" data-action="zoom">
+
+-----
+
+## Forking workflow: developer setup
 
 Il developer ora:
 
-* crea un **fork** remoto del repository ufficiale
-* fa un **clone** locale del proprio repository remoto
+* crea un **fork** remoto del repository upstream
 
-TODO: immagine dei repo e delle persone
-
-<br />
+<img style="width:300px" src="images/worflow-developer-fork.png" data-action="zoom">
 
 ## Bonus track
 
@@ -538,20 +545,50 @@ TODO: immagine dei repo e delle persone
 
 -----
 
+## Forking workflow: developer setup
+
+* fa un **clone** locale del proprio repository remoto
+
+<img style="width:300px" src="images/worflow-developer-clone.png" data-action="zoom">
+
+-----
+
 ## Forking workflow: iniziamo lo sviluppo
 
-Poniamo che developer voglia sviluppare un fix che andrà applicato sul branch master del repository ufficiale.
+Developer deve sviluppare un fix che andrà applicato sul branch master del repository upstream.
 
 Nel clone locale del *proprio* fork, farà:
 
     $ git checkout master
-    $ git pull
+    $ git pull upstream
+
+<img style="width:300px" src="images/worflow-developer-branch.png" data-action="zoom">
+
+-----
+
+## Forking workflow: nuovo branch
+
     $ git checkout -b fix/bug-123
-    $ # introduce il fix
+
+<img style="width:300px" src="images/worflow-developer-branch.png" data-action="zoom">
+
+-----
+
+## Forking workflow: lavoriamo
+
+    $ # introdurre il fix
     $ git commit
     $ git push --set-upstream origin fix/bug-123
 
+<img style="width:300px" src="images/worflow-developer-push.png" data-action="zoom">
+
+-----
+
+## Forking workflow: pull request
+
 Ora va sulla pagina web del proprio fork e crea una **pull request**.
+
+<img style="width:300px" src="images/worflow-developer-pull-request.png" data-action="zoom">
 
 -----
 
@@ -559,7 +596,7 @@ Ora va sulla pagina web del proprio fork e crea una **pull request**.
 
 Pull request **NON** è un concetto base di Git (non esattamente, almeno). È qualcosa che vi è stato costruito sopra per facilitare la collaborazione tra sviluppatori.
 
-La pull request creata in precedenza dice: "propongo di applicare i commit del branch *developer-fork:fix/bug-123* a *repository-ufficiale:master*"
+La pull request creata in precedenza dice: "propongo di applicare i commit del branch *developer-fork:fix/bug-123* a *repository-upstream:master*"
 Ora developer, project maintainer e altri possono discuterne.
 
 Se dovesse essere necessario, developer può aggiungere altri commit semplicemente con un nuovo push.
@@ -568,9 +605,11 @@ Se dovesse essere necessario, developer può aggiungere altri commit semplicemen
 
 ## Forking workflow: merging
 
-Una volta soddisfatti, project maintainer potrà effettuare il merge del codice su *repository-ufficiale:master*.
+Una volta soddisfatti, project maintainer potrà effettuare il merge del codice su *repository-upstream:master*.
 
-Se il merge non presenta conflitti, lo si può fare direttamente dalla GUI web sul repository ufficiale.  Altrimenti il project maintainer dovrà fare il fetch di developer-fork:fix/bug-123 sul proprio clone locale, effettuare il merge su master per poi farne il push sul repository ufficiale.
+Se il merge non presenta conflitti, lo si può fare direttamente dalla GUI web sul repository upstream.  Altrimenti il project maintainer dovrà fare il fetch di developer-fork:fix/bug-123 sul proprio clone locale, effettuare il merge su master per poi farne il push sul repository upstream.
+
+<img style="width:300px" src="images/worflow-maintainer-local-fix.png" data-action="zoom">
 
 ---
 
