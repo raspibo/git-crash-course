@@ -647,9 +647,15 @@ triple dot range:
 
     $ git log --left-right master...branch
 
-TODO: disegno
+-----
 
-https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif
+## Referenziare i commit: range
+
+<img style="width:300px" src="images/range-log.png" data-action="zoom">
+<img style="width:300px" src="images/range-diff.png" data-action="zoom">
+
+
+Vedere anche: https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif
 
 ---
 
@@ -659,7 +665,7 @@ https://stackoverflow.com/questions/7251477/what-are-the-differences-between-dou
     $ # in caso di conflitti:
     $ git cherry-pick --continue
 
-TODO: immagine con lo stato corrente
+<img style="width:300px" src="images/cherry-pick.png" data-action="zoom">
 
 ### Cosa è successo?
 
@@ -683,7 +689,7 @@ Poniamoci nella stessa situazione divergente dell'esempio in cui abbiamo usato m
     $ # risolviamo eventuali conflitti
     $ git rebase --continue
 
-TODO: immagine con lo stato corrente
+<img style="width:300px" src="images/rebase.png" data-action="zoom">
 
 <br />
 
@@ -709,19 +715,25 @@ Un rebase modifica i commit originali: questo va evitato se quei commit sono gi�
 
 ---
 
-## Modificare la history
+## Modificare la history: rebase interactive
 
 Creiamo un nuovo branch e committiamo 2 o 3 modifiche.  Poi:
 
     $ git rebase -i master
 
-TODO: immagine con lo stato corrente
+<img style="width:300px" src="images/rebase-interactive.png" data-action="zoom">
+
+-----
+
+### Rebase: interactive cosa è successo?
+
+Abbiamo accorpato, scartato o invertito l'ordine dei commit.
 
 <br />
 
-### Cosa è successo?
+### Quando usarlo?
 
-Abbiamo accorpato, scartato o invertito l'ordine dei commit.
+Quando abbiamo finito di lavorare su un branch, e vogliamo semplificare la history.
 
 <br />
 
@@ -734,6 +746,12 @@ Abbiamo accorpato, scartato o invertito l'ordine dei commit.
 ## Lavoro incompleto: committare a pezzi
 
 * git add --patch
+
+<br />
+
+### Quando usarlo?
+
+Ad esempio quando non si vuole includere in un commit una riga di debug, che però si vuole mantenere nella working directory.
 
 ---
 
@@ -755,7 +773,7 @@ Eliminarne uno:
 
     $ git stash drop stash@{0}
 
-## Quando usarlo?
+### Quando usarlo?
 
 Ad esempio quando vogliamo passare ad un altro branch, accantonando le modifiche nella working directory.
 
