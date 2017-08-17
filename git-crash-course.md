@@ -129,7 +129,7 @@ Creare un nuovo repository partendo da una directory (vuota o meno):
 
 Clonare un repository remoto esistente:
 
-    $ git clone https://github.com/user/repo.git
+    $ git clone https://git.lattuga.net/user/repo.git
 
 -----
 
@@ -241,7 +241,7 @@ Un tag è un puntatore ad un commit:
 
 Rappresenta la storia dei commit fino al punto corrente (o da/a qualsiasi punto indicato).
 
-Si può limitare agli ultimi N commit con **-N**
+Si può limitare agli ultimi N commit con ***-N***
 
 <br />
 
@@ -339,11 +339,13 @@ Creare e spostarsi in un singolo comando:
 
 * **master** è solamente un default
 
+* **HEAD**: reference al branch (o commit) corrente
+
+* **refs**: nome collettivo per riferirsi ad HEAD, branches, tags
+
 * fate caso all'asterisco: è il branch corrente
 
 * dare nomi significativi; usate prefissi (bugfix/, fix/, improvement/, feature/, task/) e issue di riferimento
-
-* **refs**: nome collettivo per riferirsi ad HEAD, branches, tags
 
 ---
 
@@ -404,6 +406,10 @@ Mergiamo:
 
 <img style="width:300px" src="images/branch-conflict-solved.png" data-action="zoom">
 
+### Bonus track
+
+* che succede se cancelliamo fix/bug-123?
+
 -----
 
 ## Conflict files
@@ -420,7 +426,7 @@ Cercare sempre tutti i markers **<<<<<<<**, **=======**, **>>>>>>>**
 
 ## Lavorare con repository remoti
 
-    $ git remote add origin https://github.com/user/repo.git
+    $ git remote add origin https://git.lattuga.net/user/repo.git
     $ git remote -v
 
 <br />
@@ -460,7 +466,7 @@ Aggiungere al repository remoto un branch locale:
 
     $ git push --set-upstream origin local-branch-name
 
-Aggiungiamo i cambiamenti locali ad un branch remoto:
+Inviare i cambiamenti locali ad un branch remoto:
 
     $ git push --tags [origin [master]]
 
@@ -469,6 +475,7 @@ Aggiungiamo i cambiamenti locali ad un branch remoto:
 ### Bonus track
 
 * git push di default non invia i tags
+* cancellare un branch remoto: **git push -d origin branch-name**
 
 ---
 
@@ -476,7 +483,7 @@ Aggiungiamo i cambiamenti locali ad un branch remoto:
 
 Cosa da non fare **MAI** (salvo non ne siate davvero convinti): modificare una history che sia già stata pushata.
 
-Questo perché se qualcuno sta lavorando sullo stesso branch remoto, le altre persone si troveranno con dei repository non consistenti.
+Questo perché se qualcuno sta lavorando sullo stesso branch remoto, le altre persone si troveranno con dei repository non coerenti.
 
 ---
 
@@ -512,8 +519,7 @@ Valide risorse:
 Vediamo il **forking workflow**. Non perché sia intrinsecamente il migliore, ma perché quello più diffuso nello sviluppo su piattaforme come Github. Presupposti:
 
 * esiste un repository ufficiale (chiamiamolo **upstream**) di riferimento su cui solo gli autori principali possono scrivere
-* i contributi di terzi sono accettati
-* ruolo di **project maintainer**: la persona che si occuperà di mergiare nel repository principale
+* ruolo di **project maintainer**: la persona che si occuperà di mergiare nel repository upstream
 * ruolo di **developer**: chi sta sviluppando un fix o una nuova feature
 * ciascun developer avrà un fork remoto del repository upstream ed una copia locale su cui lavorare
 
@@ -523,9 +529,7 @@ Vediamo il **forking workflow**. Non perché sia intrinsecamente il migliore, ma
 
 Il project maintainer ha creato il repository upstream remoto e il proprio clone locale.
 
-Maintainer:
-
-* git clone
+    $ git clone https://git.lattuga.net/maintainer/repo.git
 
 <img style="width:300px" src="images/worflow-maintainer-clone.png" data-action="zoom">
 
@@ -547,7 +551,10 @@ Il developer ora:
 
 ## Forking workflow: developer setup
 
-* fa un **clone** locale del proprio repository remoto
+Developer fa un **clone** locale del proprio repository remoto. È di norma buona idea aggiungere un remote "**upstream**" che punti al repository del maintainer:
+
+    $ git clone https://git.lattuga.net/developer/repo.git
+    $ git remote add upstream https://git.lattuga.net/maintainer/repo.git
 
 <img style="width:300px" src="images/worflow-developer-clone.png" data-action="zoom">
 
@@ -557,12 +564,12 @@ Il developer ora:
 
 Developer deve sviluppare un fix che andrà applicato sul branch master del repository upstream.
 
-Nel clone locale del *proprio* fork, farà:
+Prima di tutto è opportuno sincronizzare il proprio branch master con quello upstream:
 
     $ git checkout master
     $ git pull upstream
 
-<img style="width:300px" src="images/worflow-developer-branch.png" data-action="zoom">
+<img style="width:300px" src="images/worflow-developer-pull-upstream.png" data-action="zoom">
 
 -----
 
@@ -596,7 +603,7 @@ Ora va sulla pagina web del proprio fork e crea una **pull request**.
 
 Pull request **NON** è un concetto base di Git (non esattamente, almeno). È qualcosa che vi è stato costruito sopra per facilitare la collaborazione tra sviluppatori.
 
-La pull request creata in precedenza dice: "propongo di applicare i commit del branch *developer-fork:fix/bug-123* a *repository-upstream:master*"
+La pull request creata in precedenza dice: "propongo di applicare i commit del branch *developer:fix/bug-123* a *maintainer:master*"
 Ora developer, project maintainer e altri possono discuterne.
 
 Se dovesse essere necessario, developer può aggiungere altri commit semplicemente con un nuovo push.
@@ -605,11 +612,45 @@ Se dovesse essere necessario, developer può aggiungere altri commit semplicemen
 
 ## Forking workflow: merging
 
-Una volta soddisfatti, project maintainer potrà effettuare il merge del codice su *repository-upstream:master*.
+Una volta soddisfatti, project maintainer potrà effettuare il merge del codice su *maintainer:master*.
 
-Se il merge non presenta conflitti, lo si può fare direttamente dalla GUI web sul repository upstream.  Altrimenti il project maintainer dovrà fare il fetch di developer-fork:fix/bug-123 sul proprio clone locale, effettuare il merge su master per poi farne il push sul repository upstream.
+Se il merge non presenta conflitti, lo si può fare direttamente dalla GUI web sul repository upstream.  Altrimenti il project maintainer dovrà fare il fetch di developer:fix/bug-123 sul proprio clone locale, effettuare il merge su master per poi farne il push sul repository upstream.
 
 <img style="width:300px" src="images/worflow-maintainer-local-fix.png" data-action="zoom">
+
+-----
+
+## Forking workflow: sunto setup maintainer
+
+1. clone locale: git clone https://git.lattuga.net/maintainer/repo.git
+
+-----
+
+## Forking workflow: sunto setup developer
+
+1. fork sul web
+1. clone locale del fork: git clone https://git.lattuga.net/developer/repo.git
+1. aggiunge un remote che punta al repository upstream: git remote add upstream https://git.lattuga.net/maintainer/repo.git
+
+-----
+
+## Forking workflow: sunto sviluppo developer
+
+1. aggiorna il proprio master: git checkout master ; git pull upstream
+1. crea un branch su cui lavorare: git checkout -b fix/bug-123
+1. invia le modifiche al proprio repository remoto: git push --set-upstream origin fix/bug-123
+1. crea sul web una pull request
+1. se serve, integra il lavoro semplicemente pushando altri commit fatti su fix/bug-123
+
+-----
+
+## Forking workflow: sunto lavoro del maintainer
+
+1. riceve una pull request e la valuta.
+1. se mergiabile senza conflitti, lo fa via web. *Altrimenti:*
+1. ottiene il branch di developer: git fetch https://git.lattuga.net/developer/repo.git fix/bug-123
+1. effettua il merge sul proprio master locale, risolvendo i conflitti: git merge fix/bug-123
+1. invia il master al proprio repository remoto: git push origin master
 
 ---
 
@@ -631,7 +672,6 @@ Salire di un livello, seguendo il secondo parent commit (in caso di merge):
 
 ### Bonus track
 
-* cosa è HEAD: reference al branch (o commit) corrente
 * **detached HEAD**: ci siamo spostati su un commit che non è l'head di un branch
 * questi operatori sono concatenabili: HEAD~~^2
 
@@ -646,6 +686,8 @@ double dot range:
 triple dot range:
 
     $ git log --left-right master...branch
+
+TODO: descrivi!
 
 -----
 
