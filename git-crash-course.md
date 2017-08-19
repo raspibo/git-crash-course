@@ -890,9 +890,7 @@ Per vedere TUTTO ciò che è successo:
 
 <br />
 
-### git add
-### git commit -m 'done'
-### git push origin
+### git clone https://git.lattuga.net/alberanid/git-crash-course.git
 
 <br />
 <br />
