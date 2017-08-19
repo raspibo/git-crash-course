@@ -13,7 +13,7 @@ This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 Inte
 
 ## A chi è rivolto
 
-A chi si trova a volere/dovere usare Git, ed è ancora alle prime armi.
+A chi si trova a volere/dovere usare Git in un piccolo team, ed è ancora alle prime armi.
 
 ---
 
@@ -291,6 +291,12 @@ Voglio creare un nuovo commit che annulla le modifiche introdotte da un commit p
 
     $ git revert [-n] <commit>
 
+<br />
+
+## Bonus track
+
+* maggiori informazioni sul reset: https://stackoverflow.com/questions/3528245/whats-the-difference-between-git-reset-mixed-soft-and-hard
+
 ---
 
 ## Branches: cosa sono e perché usarli?
@@ -342,8 +348,6 @@ Creare e spostarsi in un singolo comando:
 * **HEAD**: reference al branch (o commit) corrente
 
 * **refs**: nome collettivo per riferirsi ad HEAD, branches, tags
-
-* fate caso all'asterisco: è il branch corrente
 
 * dare nomi significativi; usate prefissi (bugfix/, fix/, improvement/, feature/, task/) e issue di riferimento
 
@@ -446,7 +450,7 @@ Aggiornare il repository locale con i dati di un remoto:
 
 Differenze tra il master locale e quello remoto:
 
-    $ git log master...origin/master
+    $ git log --left-right master...origin/master
 
 Scaricare gli aggiornamenti dal remoto e mergiare il branch corrente:
 
@@ -622,23 +626,23 @@ Se il merge non presenta conflitti, lo si può fare direttamente dalla GUI web s
 
 ## Forking workflow: sunto setup maintainer
 
-1. clone locale: git clone https://git.lattuga.net/maintainer/repo.git
+1. clone locale: **git clone https://git.lattuga.net/maintainer/repo.git**
 
 -----
 
 ## Forking workflow: sunto setup developer
 
 1. fork sul web
-1. clone locale del fork: git clone https://git.lattuga.net/developer/repo.git
-1. aggiunge un remote che punta al repository upstream: git remote add upstream https://git.lattuga.net/maintainer/repo.git
+1. clone locale del fork: **git clone https://git.lattuga.net/developer/repo.git**
+1. aggiunge un remote che punta al repository upstream: **git remote add upstream https://git.lattuga.net/maintainer/repo.git**
 
 -----
 
 ## Forking workflow: sunto sviluppo developer
 
-1. aggiorna il proprio master: git checkout master ; git pull upstream
-1. crea un branch su cui lavorare: git checkout -b fix/bug-123
-1. invia le modifiche al proprio repository remoto: git push --set-upstream origin fix/bug-123
+1. aggiorna il proprio master: **git checkout master ; git pull upstream**
+1. crea un branch su cui lavorare: **git checkout -b fix/bug-123**
+1. invia le modifiche al proprio repository remoto: **git push --set-upstream origin fix/bug-123**
 1. crea sul web una pull request
 1. se serve, integra il lavoro semplicemente pushando altri commit fatti su fix/bug-123
 
@@ -648,9 +652,9 @@ Se il merge non presenta conflitti, lo si può fare direttamente dalla GUI web s
 
 1. riceve una pull request e la valuta.
 1. se mergiabile senza conflitti, lo fa via web. *Altrimenti:*
-1. ottiene il branch di developer: git fetch https://git.lattuga.net/developer/repo.git fix/bug-123
-1. effettua il merge sul proprio master locale, risolvendo i conflitti: git merge fix/bug-123
-1. invia il master al proprio repository remoto: git push origin master
+1. ottiene il branch di developer: **git fetch https://git.lattuga.net/developer/repo.git fix/bug-123**
+1. effettua il merge sul proprio master locale, risolvendo i conflitti: **git merge fix/bug-123**
+1. invia il master al proprio repository remoto: **git push origin master**
 
 ---
 
@@ -679,15 +683,15 @@ Salire di un livello, seguendo il secondo parent commit (in caso di merge):
 
 ## Referenziare i commit: range
 
-double dot range:
+**Double dot range**. Usando *diff* mostra i cambiamenti tra "master" e "branch"; usando *log* mostra i commit raggiungibili da "branch" ma non da "master":
 
-    $ git log master..branch
+    $ git diff master..branch
 
-triple dot range:
+<br />
+
+**Triple dot range**. Usando *diff* mostra la differenza tra il punto di biforcazione tra "master" e "branch" e "branch" stesso; usando *log* mostra i commit raggiungibili da "master" o "branch", ma non da entrambi:
 
     $ git log --left-right master...branch
-
-TODO: descrivi!
 
 -----
 
@@ -708,6 +712,10 @@ Vedere anche: https://stackoverflow.com/questions/7251477/what-are-the-differenc
     $ git cherry-pick --continue
 
 <img style="width:300px" src="images/cherry-pick.png" data-action="zoom">
+
+-----
+
+## cherry-pick: quando usarlo?
 
 ### Cosa è successo?
 
@@ -732,8 +740,6 @@ Poniamoci nella stessa situazione divergente dell'esempio in cui abbiamo usato m
     $ git rebase --continue
 
 <img style="width:300px" src="images/rebase.png" data-action="zoom">
-
-<br />
 
 ### Cosa è successo?
 
@@ -787,7 +793,9 @@ Quando abbiamo finito di lavorare su un branch, e vogliamo semplificare la histo
 
 ## Lavoro incompleto: committare a pezzi
 
-* git add --patch
+Editiamo un file in vari punti, e poi aggiungiamolo alla staging area con --patch:
+
+    $ git add --patch
 
 <br />
 
@@ -799,20 +807,14 @@ Ad esempio quando non si vuole includere in un commit una riga di debug, che per
 
 ## Mettere il lavoro da parte: stash
 
-Capita di dover mettere da parte il lavoro nella directory corrente senza voler committare:
+Mettere da parte il lavoro nella working directory senza committare, e mostrare le modifiche stashed:
 
     $ git stash
-
-Vedere la lista:
-
     $ git stash list
 
-Riapplicare una modifica messa in stash:
+Riapplicare una modifica messa in stash, ed eliminarne uno:
 
-    $ git stash pop [stash]
-
-Eliminarne uno:
-
+    $ git stash pop stash@{0}
     $ git stash drop stash@{0}
 
 ### Quando usarlo?
@@ -834,7 +836,7 @@ Ad esempio quando vogliamo passare ad un altro branch, accantonando le modifiche
 
 La history mostra solo i commit inclusi in un branch.
 
-Per vedere tutto ciò che è successo:
+Per vedere TUTTO ciò che è successo:
 
     $ git reflog [--relative-date]
 
@@ -888,7 +890,9 @@ Per vedere tutto ciò che è successo:
 
 <br />
 
-## ?
+### git add
+### git commit -m 'done'
+### git push origin
 
 <br />
 <br />
