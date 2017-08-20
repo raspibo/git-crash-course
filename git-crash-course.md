@@ -15,29 +15,30 @@ This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 Inte
 
 A chi si trova a volere/dovere usare Git in un piccolo team, ed è ancora alle prime armi.
 
----
+-----
 
 ## Struttura del corso
 
-<br />
+### Parte 1
 
-## Parte 1
+Le basi per lavorare in locale e con repository remoti.
 
-Le basi per lavorare in locale e collaborare con altri usando il forking workflow, da applicare senza porsi troppe domande.
+### Parte 2
 
-<br />
+Un workflow per lo sviluppo collaborativo, da applicare senza porsi troppe domande.
 
-## Parte 2
+### Parte 3
 
 Una serie di strumenti avanzati, per chi ci ha preso gusto e vuole approfondire lo strumento.
 
----
+-----
 
 ## Cosa verrà trattato
 
 * i comandi essenziali (porcelain) da riga di comando
 * come gestire i branch
 * le basi per lavorare con repository remoti
+* un workflow per collaborare con altri sviluppatori
 
 -----
 
@@ -48,7 +49,7 @@ Una serie di strumenti avanzati, per chi ci ha preso gusto e vuole approfondire 
 * amministrazione di un repository remoto
 * flame wars sui workflow
 
----
+-----
 
 ## Cosa è Git
 
@@ -97,7 +98,7 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 * (fare) **Checkout**: aggiornare i file nella working directory ad un dato branch/commit/...
 
----
+-----
 
 ## Le basi: prepariamo l'ambiente
 
@@ -111,15 +112,13 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 * cercare un esempio di ~/.gitconfig avanzato, con qualche alias per i comandi principali
 
------
+---
 
 ## Parte 1
 
-In cui forniamo un workflow precotto per chi non vuole porsi troppe domande, adatto allo sviluppo in solitaria o con pochi altri contributori.
+In cui forniamo le basi per lavorare in locale e con repository remoti.
 
-Iniziamo lavorando in locale, per poi vedere come interagire con altri sviluppatori.
-
------
+---
 
 ## Le basi: creare un repository
 
@@ -144,13 +143,13 @@ Clonare un repository remoto esistente:
 * i repository remoti vengono di norma creati con **--bare** e non hanno working directory
 * si può posizionare la directory .git in un altro path con **--separate-git-dir**
 
----
+-----
 
 <!-- .slide: class="two-cols" -->
 
 ## Le basi: status
 
-Vedere lo stato del sistema:
+Vedere lo stato del sistema (usatelo spesso!):
 
     $ git status [-s]
 
@@ -202,7 +201,7 @@ Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nos
 * come scrivere un messaggio di commit che non susciti sgomento?
 * le directory vuote non vengono salvate: .gitkeep / .gitignore
 
----
+-----
 
 ## Cosa sono i commit
 
@@ -219,7 +218,7 @@ I commit hash sono generati partendo da: messaggio, committer, author, dates, tr
 * vedere https://blog.thoughtram.io/git/2014/11/18/the-anatomy-of-a-git-commit.html
 * e anche https://git-scm.com/book/it/v2/Git-Internals-Git-References
 
----
+-----
 
 ## Le basi: tag
 
@@ -251,7 +250,7 @@ Visualizzare solo i commit che hanno coinvolto un dato file:
 
     $ git log -- file.txt
 
----
+-----
 
 ## Le basi: diff
 
@@ -355,8 +354,6 @@ Creare e spostarsi in un singolo comando:
 
 ## Rimettere insieme i pezzi: merge
 
-Partendo da master:
-
     $ git branch -b fix/bug-123
     $ # editiamo nuovofile.txt
     $ git add nuovofile.txt
@@ -369,7 +366,7 @@ Partendo da master:
 
 <img style="width:300px" src="images/branch-ff.png" data-action="zoom">
 
----
+-----
 
 ## Merge: cosa è successo?
 
@@ -383,8 +380,6 @@ Il comando commit ha le opzioni **--ff-only** e **--no-ff** per decidere come co
 
 ## Risoluzione dei conflitti
 
-Partendo da master:
-
     $ git branch -b fix/bug-123
     $ # editiamo file.txt
     $ git add file.txt
@@ -396,6 +391,10 @@ Partendo da master:
     $ git commit
 
 <img style="width:300px" src="images/branch-conflict.png" data-action="zoom">
+
+### Bonus track
+
+* quali commit fanno parte del branch fix/bug-123?
 
 -----
 
@@ -462,7 +461,7 @@ Scaricare gli aggiornamenti dal remoto e mergiare il branch corrente:
 
 * **git pull** è identico a **git fetch ; git merge**
 
----
+-----
 
 ## Push
 
@@ -481,7 +480,7 @@ Inviare i cambiamenti locali ad un branch remoto:
 * git push di default non invia i tags
 * cancellare un branch remoto: **git push -d origin branch-name**
 
----
+-----
 
 ## Parlando della history remota...
 
@@ -491,7 +490,13 @@ Questo perché se qualcuno sta lavorando sullo stesso branch remoto, le altre pe
 
 ---
 
-## Workflow di sviluppo
+## Parte 2
+
+In cui forniamo un workflow precotto per chi non vuole porsi troppe domande, adatto allo sviluppo collaborativo.
+
+---
+
+## Quale workflow?
 
 Nello scegliere un workflow dovrete rispondere ad alcune domande, quali:
 
@@ -658,7 +663,7 @@ Se il merge non presenta conflitti, lo si può fare direttamente dalla GUI web s
 
 ---
 
-## Parte 2
+## Parte 3
 
 In cui forniremo una serie di strumenti avanzati.
 
@@ -803,7 +808,7 @@ Editiamo un file in vari punti, e poi aggiungiamolo alla staging area con --patc
 
 Ad esempio quando non si vuole includere in un commit una riga di debug, che però si vuole mantenere nella working directory.
 
----
+-----
 
 ## Mettere il lavoro da parte: stash
 
