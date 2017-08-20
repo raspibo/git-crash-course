@@ -6,6 +6,9 @@
 Non-corso per non prendere a martellate il monitor quando usate Git.
 
 <br />
+**git clone https://git.lattuga.net/alberanid/git-crash-course.git**
+
+<br />
 <br />
 This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License: http://creativecommons.org/licenses/by-sa/4.0/
 
@@ -860,6 +863,8 @@ Per vedere TUTTO ciò che è successo:
 * gestire file grandi (alternativa): https://git-annex.branchable.com/
 * gestire la propria directory /etc: etckeeper
 * gestire repository multipli: https://source.android.com/source/using-repo
+* git repository manager: https://gogs.io/
+* git repository manager: https://about.gitlab.com/
 
 -----
 
