@@ -101,6 +101,8 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 * (fare) **Checkout**: aggiornare i file nella working directory ad un dato branch/commit/...
 
+* **HEAD**: il commit a cui sarà collegato il prossimo commit (di norma, il branch corrente)
+
 -----
 
 ## Le basi: prepariamo l'ambiente
@@ -440,6 +442,7 @@ Cercare sempre tutti i markers **<<<<<<<**, **=======**, **>>>>>>>**
 ## Bonus track
 
 * **origin** è solamente un default
+* i branch remoti sono referenziabili con **remote/branch**
 * l'associazione tra branch remoti e locali viene effettuata in automatico, in base al nome del branch
 
 -----
@@ -886,6 +889,7 @@ Per vedere TUTTO ciò che è successo:
 * Git ready: http://gitready.com/
 * Git Cookbook: https://git.seveas.net/
 * tutorial di Atlassian: https://www.atlassian.com/git/tutorials
+* A visual Git reference: https://marklodato.github.io/visual-git-guide/index-en.html
 
 <br />
 
