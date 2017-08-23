@@ -642,9 +642,17 @@ Se dovesse essere necessario, developer può aggiungere altri commit semplicemen
 
 Una volta soddisfatti, project maintainer potrà effettuare il merge del codice su *maintainer:master*.
 
-Se il merge non presenta conflitti, lo si può fare direttamente dalla GUI web sul repository upstream.  Altrimenti il project maintainer dovrà fare il fetch di developer:fix/bug-123 sul proprio clone locale, effettuare il merge su master per poi farne il push sul repository upstream.
+Se il merge non presenta conflitti, lo farà direttamente dalla GUI web sul repository upstream.  Altrimenti dovrà fare il fetch di developer:fix/bug-123 sul proprio clone locale, effettuare il merge su master per poi farne il push sul repository upstream.
 
-<img style="width:300px" src="images/worflow-maintainer-local-fix.png" data-action="zoom">
+<img style="width:300px;" src="images/worflow-maintainer-local-fix.png" data-action="zoom">
+
+-----
+
+## Forking workflow: bugia!
+
+Github e amici NON suggeriranno di fare il fetch dal repository di developer, ma da un branch dell'upstream che è specifico della pull request; questo per poter continuare a collaborare con gli altri sviluppatori.
+
+La sostanza del discorso resta invariata, ma ovviamente se usate un certo strumento è bene seguire le istruzioni che vi fornirà in caso dobbiate risolvere conflitti su una pull request.
 
 -----
 
