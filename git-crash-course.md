@@ -70,7 +70,7 @@ Il resto lo spiega meglio Wikipedia: https://it.wikipedia.org/wiki/Git%5F%28soft
 
 * non è Subversion o CVS
 * non è un sistema di backup
-* non è un sistema per fare deploy (o magari sì, ma rifletteteci)
+* non è un sistema per [fare deploy](https://grimoire.ca/git/stop-using-git-pull-to-deploy) (o magari sì, ma rifletteteci)
 
 -----
 
@@ -101,7 +101,7 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 * (fare) **Checkout**: aggiornare i file nella working directory ad un dato branch/commit/...
 
-* **HEAD**: il commit a cui sarà collegato il prossimo commit (di norma, il branch corrente)
+* **HEAD**: il punto a cui sarà collegato il prossimo commit (di norma, il branch corrente)
 
 -----
 
@@ -196,7 +196,7 @@ Verifichiamo quanto accaduto:
 
 ### Cosa è successo?
 
-Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nostro lavoro.
+Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nostro lavoro. Se - come normalmente accade - siamo in un branch, questo punta al nuovo commit (HEAD continua a puntare al branch, e di conseguenza anch'essa al nuovo commit).
 
 <br />
 
@@ -210,7 +210,7 @@ Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nos
 
 ## Cosa sono i commit
 
-Sono uno snapshot dell'intero stato del sistema in un dato momento, **identificati da un hash**.
+Sono uno snapshot dell'intero stato del sistema in un dato momento, **identificati da un hash** (e.g.: *6d7696a8b894c8ef039d6fd2ecdc514a2efe16b5*).
 
 I commit hash sono generati partendo da: messaggio, committer, author, dates, tree, parent hash.
 
@@ -219,7 +219,7 @@ I commit hash sono generati partendo da: messaggio, committer, author, dates, tr
 ### Bonus track
 
 * .gitignore per ignorare certi file
-* è possibile abbreviare gli hash, purché rimangano univoci.
+* è possibile abbreviare gli hash, purché rimangano univoci (e.g. *6d769*).
 * vedere https://blog.thoughtram.io/git/2014/11/18/the-anatomy-of-a-git-commit.html
 * e anche https://git-scm.com/book/it/v2/Git-Internals-Git-References
 
@@ -263,7 +263,7 @@ Modifichiamo un file, senza aggiungerlo alla staging area:
 
     $ git diff
 
-Per vedere quanto è stato posto in staging area:
+Per vedere quanto è stato posto in staging area (e motivo per cui è utile usarla):
 
     $ git diff --staged
 
@@ -347,13 +347,15 @@ Creare e spostarsi in un singolo comando:
 
 ## Branches: approfondiamo
 
-* **master** è solamente un default
+* **master** è solamente un default (di norma si considera master "stabile")
 
 * **HEAD**: reference al branch (o commit) corrente
 
 * **refs**: nome collettivo per riferirsi ad HEAD, branches, tags
 
-* dare nomi significativi; usate prefissi (bugfix/, fix/, improvement/, feature/, task/) e issue di riferimento
+* dare nomi significativi; usate prefissi come *bugfix/*, *fix/*, *improvement/*, *feature/*, *task/*) e issue di riferimento
+
+* possono essere logicamente suddivise: *feature* (o *topic*), *release*, *integration* branches e così via
 
 ---
 
@@ -442,7 +444,7 @@ Cercare sempre tutti i markers **<<<<<<<**, **=======**, **>>>>>>>**
 ## Bonus track
 
 * **origin** è solamente un default
-* i branch remoti sono referenziabili con **remote/branch**
+* si può fare il checkout di un branch remoto con **remote/branch** (e.g.: *git checkout origin/fix/bug-123*)
 * l'associazione tra branch remoti e locali viene effettuata in automatico, in base al nome del branch
 
 -----
@@ -533,7 +535,7 @@ Valide risorse:
 
 Vediamo il **forking workflow**. Non perché sia intrinsecamente il migliore, ma perché quello più diffuso nello sviluppo su piattaforme come Github. Presupposti:
 
-* esiste un repository ufficiale (chiamiamolo **upstream**) di riferimento su cui solo gli autori principali possono scrivere
+* esiste un repository ufficiale (che, dal punto di vista di un developer, chiameremo **upstream**) di riferimento su cui solo gli autori principali possono scrivere
 * ruolo di **project maintainer**: la persona che si occuperà di mergiare nel repository upstream
 * ruolo di **developer**: chi sta sviluppando un fix o una nuova feature
 * ciascun developer avrà un fork remoto del repository upstream ed una copia locale su cui lavorare
@@ -582,7 +584,7 @@ Developer deve sviluppare un fix che andrà applicato sul branch master del repo
 Prima di tutto è opportuno sincronizzare il proprio branch master con quello upstream:
 
     $ git checkout master
-    $ git pull upstream
+    $ git pull upstream master
 
 <img style="width:300px" src="images/worflow-developer-pull-upstream.png" data-action="zoom">
 
@@ -651,7 +653,7 @@ Se il merge non presenta conflitti, lo si può fare direttamente dalla GUI web s
 
 ## Forking workflow: sunto sviluppo developer
 
-1. aggiorna il proprio master: **git checkout master ; git pull upstream**
+1. aggiorna il proprio master: **git checkout master ; git pull upstream master**
 1. crea un branch su cui lavorare: **git checkout -b fix/bug-123**
 1. invia le modifiche al proprio repository remoto: **git push --set-upstream origin fix/bug-123**
 1. crea sul web una pull request
@@ -847,7 +849,7 @@ Ad esempio quando vogliamo passare ad un altro branch, accantonando le modifiche
 
 La history mostra solo i commit inclusi in un branch.
 
-Per vedere TUTTO ciò che è successo:
+Per vedere TUTTI gli spostamenti di HEAD:
 
     $ git reflog [--relative-date]
 
