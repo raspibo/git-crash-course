@@ -768,8 +768,7 @@ Poniamoci nella stessa situazione divergente dell'esempio in cui abbiamo usato m
 ### Cosa è successo?
 
 Abbiamo preso tutti i commit di fix/bug-123 e li abbiamo ri-applicati su master, che nel mentre era andato avanti.
-
-Tutti i commit specifici di fix/bug-123 sono cambiati.
+Tutti i commit specifici di fix/bug-123 sono cambiati. Volendo, ora si può fare un merge fast-forward in master.
 
 -----
 
@@ -783,7 +782,7 @@ Quando dovete spostare più commit e/o per porvi nella condizione di fare un mer
 
 ### Quando NON usarlo?
 
-Un rebase modifica i commit originali: questo va evitato se quei commit sono già stati pushati ed altri sviluppatori li stanno usando come base per il proprio lavoro.
+Un rebase modifica i commit originali del branch: questo va evitato se quei commit sono già stati pushati ed altri sviluppatori li stanno usando come base per il proprio lavoro.
 
 ---
 
@@ -829,6 +828,15 @@ Ad esempio quando non si vuole includere in un commit una riga di debug, che per
 
 -----
 
+## Creare e applicare patch
+
+è possibile creare e riapplicare una patch usando i comandi:
+
+    $ git format-patch [refs]
+    $ git apply patch-file.diff
+
+-----
+
 ## Mettere il lavoro da parte: stash
 
 Mettere da parte il lavoro nella working directory senza committare, e mostrare le modifiche stashed:
@@ -845,16 +853,7 @@ Riapplicare una modifica messa in stash, ed eliminarne uno:
 
 Ad esempio quando vogliamo passare ad un altro branch, accantonando le modifiche nella working directory.
 
----
-
-## Creare e applicare patch
-
-è possibile creare e riapplicare una patch usando i comandi:
-
-    $ git format-patch [refs]
-    $ git apply patch-file.diff
-
----
+-----
 
 ## Storico dei cambiamenti: reflog
 
