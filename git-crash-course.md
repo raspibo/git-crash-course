@@ -349,8 +349,6 @@ Creare e spostarsi in un singolo comando:
 
 * **master** è solamente un default (di norma si considera master "stabile")
 
-* **HEAD**: reference al branch (o commit) corrente
-
 * **refs**: nome collettivo per riferirsi ad HEAD, branches, tags
 
 * dare nomi significativi; usate prefissi come *bugfix/*, *fix/*, *improvement/*, *feature/*, *task/*) e issue di riferimento
@@ -445,7 +443,6 @@ Cercare sempre tutti i markers **<<<<<<<**, **=======**, **>>>>>>>**
 
 * **origin** è solamente un default
 * si può fare il checkout di un branch remoto con **remote/branch** (e.g.: *git checkout origin/fix/bug-123*)
-* l'associazione tra branch remoti e locali viene effettuata in automatico, in base al nome del branch
 
 -----
 
@@ -455,7 +452,7 @@ Aggiornare il repository locale con i dati di un remoto:
 
     $ git fetch --prune --tags origin
 
-Differenze tra il master locale e quello remoto:
+Commit che divergono tra il master locale e quello remoto:
 
     $ git log --left-right master...origin/master
 
@@ -468,6 +465,20 @@ Scaricare gli aggiornamenti dal remoto e mergiare il branch corrente:
 ### Bonus track
 
 * **git pull** è identico a **git fetch ; git merge**
+
+-----
+
+## Branches locali e remoti
+
+* **local branch**: un branch che avete solo in locale
+
+* **remote branch**: un branch che esiste su un repository remoto
+
+* **remote tracking branch**: la copia locale di un remote branch; aggiornabile con fetch, non è possibile lavorarci sopra direttamente
+
+* **local tracking branch**: un branch locale su cui è possibile lavorare direttamente, che traccia un altro branch (di norma, un remote tracking branch)
+
+* l'associazione tra branch remoti e locali viene effettuata in automatico, in base al nome del branch: se nel repository remoto esiste *origin/branch-1*, il comando *git checkout branch-1* crea un local tracking branch che traccia il remote tracking branch *origin/branch-1*
 
 -----
 
