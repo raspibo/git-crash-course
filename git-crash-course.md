@@ -625,6 +625,10 @@ Ora va sulla pagina web del proprio fork e crea una **pull request**.
 
 <img style="width:300px" src="images/worflow-developer-pull-request.png" data-action="zoom">
 
+### Bonus track
+
+* ha senso fare un rebase (e push) su *upstream/master* del feature branch su cui stiamo lavorando, prima di creare la pull request
+
 -----
 
 ## Forking workflow: pull request
@@ -634,7 +638,7 @@ Pull request **NON** è un concetto base di Git (non esattamente, almeno). È qu
 La pull request creata in precedenza dice: "propongo di applicare i commit del branch *developer:fix/bug-123* a *maintainer:master*"
 Ora developer, project maintainer e altri possono discuterne.
 
-Se dovesse essere necessario, developer può aggiungere altri commit semplicemente con un nuovo push.
+Se dovesse essere necessario, developer o altri possono aggiungere altri commit semplicemente con un nuovo push.
 
 -----
 
