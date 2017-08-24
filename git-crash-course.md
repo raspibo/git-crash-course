@@ -139,7 +139,7 @@ Clonare un repository remoto esistente:
 
 ## creare un repository: cosa è successo?
 
-È stata creata la directory **.git** (il **repository**); se abbiamo fatto un clone, sono stati aggiunti i riferimenti al remote.
+È stata creata la directory **.git** (il **repository**); se abbiamo fatto un clone, è stato aggiunto il riferimento al remote "*origin*".
 
 <br />
 
@@ -190,11 +190,7 @@ Verifichiamo quanto accaduto:
 
 -----
 
-## Le basi: add e commit
-
-<br />
-
-### Cosa è successo?
+## add e commit: cosa è successo?
 
 Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nostro lavoro. Se - come normalmente accade - siamo in un branch, questo punta al nuovo commit (HEAD continua a puntare al branch, e di conseguenza anch'essa al nuovo commit).
 
@@ -202,9 +198,9 @@ Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nos
 
 ### Bonus track
 
-* git rm, git mv
-* come scrivere un messaggio di commit che non susciti sgomento?
-* le directory vuote non vengono salvate: .gitkeep / .gitignore
+* indovinate cosa fanno **git rm** e **git mv**
+* come scrivere un messaggio di commit che non susciti sgomento? Issue, titolo breve, descrizione estesa
+* le directory vuote non vengono salvate; se vi serve, aggiungete un file *.gitkeep* (è solo una convenzione)
 
 -----
 
@@ -751,9 +747,7 @@ Vedere anche: https://stackoverflow.com/questions/7251477/what-are-the-differenc
 
 -----
 
-## cherry-pick: quando usarlo?
-
-### Cosa è successo?
+## cherry-pick: cosa è successo?
 
 Si sono prese le modifiche introdotte dai commit elencati, e sono state riapplicate sul branch corrente.
 Sono stati creati dei nuovi commit.
@@ -784,9 +778,7 @@ Tutti i commit specifici di fix/bug-123 sono cambiati. Volendo, ora si può fare
 
 -----
 
-## Rebase
-
-### Quando usarlo?
+## Rebase: quando usarlo?
 
 Quando dovete spostare più commit e/o per porvi nella condizione di fare un merge pulito. Questo può essere fatto dal developer prima di aprire una pull request per semplificare il lavoro al maintainer e/o dal maintainer stesso prima del merge, per ottenere una history lineare.
 
@@ -808,15 +800,11 @@ Creiamo un nuovo branch e committiamo 2 o 3 modifiche.  Poi:
 
 -----
 
-### Rebase: interactive cosa è successo?
+### Rebase interactive: cosa è successo?
 
 Abbiamo accorpato, scartato o invertito l'ordine dei commit.
 
-<br />
-
-### Quando usarlo?
-
-Quando abbiamo finito di lavorare su un branch, e vogliamo semplificare la history.
+È particolarmente utile quando abbiamo finito di lavorare su un branch, e vogliamo semplificare la history accorpando molti commit in uno solo.
 
 <br />
 
