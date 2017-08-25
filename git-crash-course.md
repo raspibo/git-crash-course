@@ -199,7 +199,7 @@ Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nos
 ### Bonus track
 
 * indovinate cosa fanno **git rm** e **git mv**
-* come scrivere un messaggio di commit che non susciti sgomento? Issue, titolo breve, descrizione estesa
+* come scrivere un messaggio di commit [che non susciti sgomento](https://chris.beams.io/posts/git-commit/)? Issue, titolo breve, descrizione estesa
 * le directory vuote non vengono salvate; se vi serve, aggiungete un file *.gitkeep* (è solo una convenzione)
 
 -----
