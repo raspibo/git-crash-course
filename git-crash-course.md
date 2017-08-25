@@ -891,9 +891,7 @@ Per vedere TUTTI gli spostamenti di HEAD:
 
 ---
 
-## Risorse
-
-### Per imparare
+## Risorse per imparare
 
 * Pro Git: https://git-scm.com/book/en/
 * Reference: https://git-scm.com/docs
