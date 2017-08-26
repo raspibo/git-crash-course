@@ -644,7 +644,7 @@ Una volta soddisfatti, project maintainer potrà effettuare il merge del codice 
 
 Se il merge non presenta conflitti, lo farà direttamente dalla GUI web sul repository upstream.
 
-Altrimenti dovrà fare il fetch di developer:fix/bug-123 sul proprio clone locale, effettuare il merge su master per poi farne il push sul repository upstream.
+Altrimenti dovrà aggiungere un remote che punti al repository di *developer*, fare il fetch di *developer:fix/bug-123*, effettuare il merge su master per poi farne il push sul repository upstream.
 
 <img style="width:300px;" src="images/worflow-maintainer-local-fix.png" data-action="zoom">
 
@@ -682,12 +682,18 @@ La sostanza del discorso resta invariata, ma ovviamente se usate un certo strume
 
 -----
 
+<!-- .slide: class="align-left" -->
+
 ## Forking workflow: sunto lavoro del maintainer
 
 1. riceve una pull request e la valuta.
-1. se mergiabile senza conflitti, lo fa via web. *Altrimenti:*
-1. ottiene il branch di developer: **git fetch https://git.lattuga.net/developer/repo.git fix/bug-123**
-1. effettua il merge sul proprio master locale, risolvendo i conflitti: **git merge fix/bug-123**
+1. se mergiabile senza conflitti, lo fa via web.
+
+*Altrimenti:*
+
+1. se non lo ha già fatto, aggiunge un remote per il repository del developer: **git remote add developer https://git.lattuga.net/developer/repo.git**
+1. crea una *local tracking branch* su cui lavorare: **git fetch developer fix/bug-123**
+1. effettua il merge sul proprio master locale, risolvendo i conflitti: **git checkout master ; git merge fix/bug-123**
 1. invia il master al proprio repository remoto: **git push origin master**
 
 ---
