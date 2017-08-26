@@ -247,9 +247,8 @@ Si può limitare agli ultimi N commit con ***-N***
 
 ### Bonus track
 
-Visualizzare solo i commit che hanno coinvolto un dato file:
-
-    $ git log -- file.txt
+* visualizzare solo i commit che hanno coinvolto un dato file: **git log -- file.txt**
+* per avere informazioni su un singolo commit, si può anche usare **git show**
 
 -----
 
