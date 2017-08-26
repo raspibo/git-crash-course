@@ -1,0 +1,15 @@
+.slides {
+    margin-top: 5px !important;
+}
+
+.two-cols ul, .two-cols h3 {
+    float: left;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-left h2, h3 {
+    text-align: center;
+}
