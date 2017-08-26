@@ -521,6 +521,8 @@ Nello scegliere un workflow dovrete rispondere ad alcune domande, quali:
 
 -----
 
+<!-- .slide: class="align-left" -->
+
 ## Worflows: le alternative
 
 I principali sono:
@@ -701,7 +703,8 @@ Nel caso di Github, ad esempio:
 
 1. se non lo ha già fatto, aggiunge un remote per il repository del developer: **git remote add developer https://git.lattuga.net/developer/repo.git**
 1. crea una *local tracking branch* su cui lavorare: **git fetch developer fix/bug-123**
-1. effettua il merge sul proprio master locale, risolvendo i conflitti: **git checkout master ; git merge --no-ff fix/bug-123**
+1. si sposta su master: **git checkout master**
+1. effettua il merge risolvendo i conflitti: **git merge --no-ff fix/bug-123**
 1. invia il master al proprio repository remoto: **git push origin master**
 
 ---
@@ -906,6 +909,8 @@ Per vedere TUTTI gli spostamenti di HEAD:
 * git gui; gitk
 
 ---
+
+<!-- .slide: class="align-left" -->
 
 ## Risorse per imparare
 
