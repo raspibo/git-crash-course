@@ -315,7 +315,7 @@ Creare un branch:
 
 Visualizzare tutti i branch:
 
-    $ git branch -a
+    $ git branch -a -v
 
 Cancellare un branch locale:
 
