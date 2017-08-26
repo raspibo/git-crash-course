@@ -650,11 +650,19 @@ Altrimenti dovrà aggiungere un remote che punti al repository di *developer*, f
 
 -----
 
+<!-- .slide: class="align-left" -->
+
 ## Forking workflow: bugia!
 
-Github e amici NON suggeriranno di fare il fetch dal repository di developer, ma da un branch dell'upstream che è specifico della pull request; questo per poter continuare a collaborare con gli altri sviluppatori.
+Github e amici non suggeriranno di aggiungere lo sviluppatore come remote, ma di fare direttamente il pull del suo topic branch. È sicuramente più pulito se ricevete molte pull request da tante persone differenti.
 
-La sostanza del discorso resta invariata, ma ovviamente se usate un certo strumento è bene seguire le istruzioni che vi fornirà in caso dobbiate risolvere conflitti su una pull request.
+Nel caso di Github, ad esempio:
+
+1. git checkout -b developer/bug-123 master
+1. git pull https://github.com/developer/repo.git fix/bug-123
+1. git checkout master
+1. git merge --no-ff developer/bug-123
+1. git push origin master
 
 -----
 
@@ -693,7 +701,7 @@ La sostanza del discorso resta invariata, ma ovviamente se usate un certo strume
 
 1. se non lo ha già fatto, aggiunge un remote per il repository del developer: **git remote add developer https://git.lattuga.net/developer/repo.git**
 1. crea una *local tracking branch* su cui lavorare: **git fetch developer fix/bug-123**
-1. effettua il merge sul proprio master locale, risolvendo i conflitti: **git checkout master ; git merge fix/bug-123**
+1. effettua il merge sul proprio master locale, risolvendo i conflitti: **git checkout master ; git merge --no-ff fix/bug-123**
 1. invia il master al proprio repository remoto: **git push origin master**
 
 ---
