@@ -446,7 +446,7 @@ Cercare sempre tutti i markers **<<<<<<<**, **=======**, **>>>>>>>**
 
 Aggiornare il repository locale con i dati di un remoto:
 
-    $ git fetch --prune --tags origin
+    $ git fetch --all --prune --tags origin
 
 Commit che divergono tra il master locale e quello remoto:
 
@@ -588,7 +588,7 @@ Developer fa un **clone** locale del proprio repository remoto. È di norma buon
 
 Developer deve sviluppare un fix che andrà applicato sul branch master del repository upstream.
 
-Prima di tutto è opportuno sincronizzare il proprio branch master con quello upstream:
+Prima di tutto è opportuno sincronizzare il proprio branch master con quello upstream, in modo da lavorare su codice recente:
 
     $ git checkout master
     $ git pull upstream master
@@ -642,7 +642,9 @@ Se dovesse essere necessario, developer o altri possono aggiungere altri commit 
 
 Una volta soddisfatti, project maintainer potrà effettuare il merge del codice su *maintainer:master*.
 
-Se il merge non presenta conflitti, lo farà direttamente dalla GUI web sul repository upstream.  Altrimenti dovrà fare il fetch di developer:fix/bug-123 sul proprio clone locale, effettuare il merge su master per poi farne il push sul repository upstream.
+Se il merge non presenta conflitti, lo farà direttamente dalla GUI web sul repository upstream.
+
+Altrimenti dovrà fare il fetch di developer:fix/bug-123 sul proprio clone locale, effettuare il merge su master per poi farne il push sul repository upstream.
 
 <img style="width:300px;" src="images/worflow-maintainer-local-fix.png" data-action="zoom">
 
