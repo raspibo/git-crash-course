@@ -757,6 +757,7 @@ Vedere anche: https://stackoverflow.com/questions/7251477/what-are-the-differenc
 
 ## Rimettere insieme i pezzi: cherry-pick
 
+    $ git checkout master
     $ git cherry-pick <commit>
     $ # in caso di conflitti:
     $ git cherry-pick --continue
