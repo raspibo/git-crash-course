@@ -718,11 +718,11 @@ In cui forniremo una serie di strumenti avanzati.
 
 Salire di 3 livelli, seguendo sempre il primo parent commit (in caso di merge):
 
-    $ git log -1 HEAD~3
+    $ git show -s HEAD~3
 
 Salire di un livello, seguendo il secondo parent commit (in caso di merge):
 
-    $ git log -1 HEAD^2
+    $ git show -s HEAD^2
 
 ### Bonus track
 
