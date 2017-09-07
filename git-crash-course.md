@@ -6,6 +6,7 @@
 Non-corso per non prendere a martellate il monitor quando usate Git.
 
 <br />
+
 **git clone https://git.lattuga.net/alberanid/git-crash-course.git**
 
 <br />
@@ -59,7 +60,6 @@ Una serie di strumenti avanzati, per chi ci ha preso gusto e vuole approfondire 
 Un sistema di controllo versione distribuito.
 
 Serve per tener traccia dei cambiamenti al proprio codice e per facilitare lo sviluppo condiviso. Va ricordato che Git è nato soprattutto per aiutare chi deve integrare il codice altrui, e non tanto per il singolo sviluppatore.
-
 
 <br />
 Il resto lo spiega meglio Wikipedia: https://it.wikipedia.org/wiki/Git%5F%28software%29
@@ -154,7 +154,7 @@ Clonare un repository remoto esistente:
 
 ## Le basi: status
 
-Vedere lo stato del sistema (usatelo spesso!):
+Vedere lo stato del sistema (usatelo spesso! Guardate anche https://ndpsoftware.com/git-cheatsheet.html ):
 
     $ git status [-s]
 
@@ -295,6 +295,7 @@ Voglio creare un nuovo commit che annulla le modifiche introdotte da un commit p
 ## Bonus track
 
 * maggiori informazioni sul reset: https://stackoverflow.com/questions/3528245/whats-the-difference-between-git-reset-mixed-soft-and-hard
+* workflow per risolvere problemi: http://justinhileman.info/article/git-pretty/git-pretty.png
 
 ---
 
@@ -576,7 +577,7 @@ Il developer ora:
 
 ## Forking workflow: developer setup
 
-Developer fa un **clone** locale del proprio repository remoto. È di norma buona idea aggiungere un remote "**upstream**" che punti al repository del maintainer:
+Developer fa un **clone** locale del proprio repository remoto. È una buona idea aggiungere un remote "**upstream**" che punti al repository del maintainer:
 
     $ git clone https://git.lattuga.net/developer/repo.git
     $ git remote add upstream https://git.lattuga.net/maintainer/repo.git
@@ -749,7 +750,6 @@ Salire di un livello, seguendo il secondo parent commit (in caso di merge):
 
 <img style="width:300px" src="images/range-log.png" data-action="zoom">
 <img style="width:300px" src="images/range-diff.png" data-action="zoom">
-
 
 Vedere anche: https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif
 
