@@ -292,7 +292,7 @@ Voglio creare un nuovo commit che annulla le modifiche introdotte da un commit p
 
 <br />
 
-## Bonus track
+### Bonus track
 
 * maggiori informazioni sul reset: https://stackoverflow.com/questions/3528245/whats-the-difference-between-git-reset-mixed-soft-and-hard
 * workflow per risolvere problemi: http://justinhileman.info/article/git-pretty/git-pretty.png
@@ -315,7 +315,7 @@ Creare un branch:
 
 Visualizzare tutti i branch:
 
-    $ git branch -a -v
+    $ git branch [-a] [-v]
 
 Cancellare un branch locale:
 
@@ -435,7 +435,7 @@ Cercare sempre tutti i markers **<<<<<<<**, **=======**, **>>>>>>>**
 
 <br />
 
-## Bonus track
+### Bonus track
 
 * **origin** è solamente un default
 * si può fare il checkout di un branch remoto con **remote/branch** (e.g.: *git checkout origin/fix/bug-123*)
@@ -446,7 +446,7 @@ Cercare sempre tutti i markers **<<<<<<<**, **=======**, **>>>>>>>**
 
 Aggiornare il repository locale con i dati di un remoto:
 
-    $ git fetch --all --prune --tags origin
+    $ git fetch --prune origin
 
 Commit che divergono tra il master locale e quello remoto:
 
@@ -569,7 +569,7 @@ Il developer ora:
 
 <img style="width:300px" src="images/worflow-developer-fork.png" data-action="zoom">
 
-## Bonus track
+### Bonus track
 
 * un fork altro non è che un clone (--mirror) di un repository, sempre ospitato sul sito remoto
 
