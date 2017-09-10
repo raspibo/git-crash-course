@@ -944,6 +944,7 @@ Per vedere TUTTI gli spostamenti di HEAD:
 **git clone https://git.lattuga.net/alberanid/git-crash-course.git**
 
 <br />
+
 ### Davide Alberani <da@erlug.linux.it>
 
 <br />
