@@ -62,7 +62,7 @@ Un sistema di controllo versione distribuito.
 Serve per tener traccia dei cambiamenti al proprio codice e per facilitare lo sviluppo condiviso. Va ricordato che Git è nato soprattutto per aiutare chi deve integrare il codice altrui, e non tanto per il singolo sviluppatore.
 
 <br />
-Il resto lo spiega meglio Wikipedia: https://it.wikipedia.org/wiki/Git%5F%28software%29
+Il resto [lo spiega meglio Wikipedia](https://it.wikipedia.org/wiki/Git%5F%28software%29).
 
 -----
 
@@ -146,7 +146,6 @@ Clonare un repository remoto esistente:
 ### Bonus track
 
 * i repository remoti vengono di norma creati con **--bare** e non hanno working directory
-* si può posizionare la directory .git in un altro path con **--separate-git-dir**
 
 -----
 
@@ -154,7 +153,7 @@ Clonare un repository remoto esistente:
 
 ## Le basi: status
 
-Vedere lo stato del sistema (usatelo spesso! Guardate anche https://ndpsoftware.com/git-cheatsheet.html ):
+Vedere lo stato del sistema (usatelo spesso! un utile [cheatsheet](https://ndpsoftware.com/git-cheatsheet.html)):
 
     $ git status [-s]
 
@@ -200,7 +199,8 @@ Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nos
 
 * indovinate cosa fanno **git rm** e **git mv**
 * come scrivere un messaggio di commit [che non susciti sgomento](https://chris.beams.io/posts/git-commit/)? Issue, titolo breve, descrizione estesa
-* le directory vuote non vengono salvate; se vi serve, aggiungete un file *.gitkeep* (è solo una convenzione)
+* non salva directory vuote; se servono, aggiungete un file *.gitkeep* (è solo una convenzione)
+* creare un file .gitignore per ignorare certi file
 
 -----
 
@@ -214,32 +214,16 @@ I commit hash sono generati partendo da: messaggio, committer, author, dates, tr
 
 ### Bonus track
 
-* .gitignore per ignorare certi file
-* è possibile abbreviare gli hash, purché rimangano univoci (e.g. *6d769*).
-* vedere https://blog.thoughtram.io/git/2014/11/18/the-anatomy-of-a-git-commit.html
-* e anche https://git-scm.com/book/it/v2/Git-Internals-Git-References
+* è possibile abbreviare gli hash, purché rimangano univoci (e.g. *6d769*)
+* per dettagli, vedere [anatomy of a Git commit](https://blog.thoughtram.io/git/2014/11/18/the-anatomy-of-a-git-commit.html) e [Git Internals](https://git-scm.com/book/it/v2/Git-Internals-Git-References)
 
 -----
-
-## Le basi: tag
-
-Un tag è un puntatore ad un commit:
-
-    $ git tag -a v1.0
-
-<br />
-
-### Bonus track
-
-* esistono sia i tag *lightweight* che *annotated*. La differenza principale è che i primi sono solo dei puntatori, i secondi sono oggetti completi: hanno un author e possono essere firmati.
-
----
 
 ## Le basi: la history
 
     $ git log [--stat] [--patch] [--graph] [--decorate] [--color] [-2]
 
-Rappresenta la storia dei commit fino al punto corrente (o da/a qualsiasi punto indicato).
+Rappresenta la storia dei commit dal punto corrente (o da/a qualsiasi punto indicato) fino al primo commit.
 
 Si può limitare agli ultimi N commit con ***-N***
 
@@ -258,9 +242,23 @@ Modifichiamo un file, senza aggiungerlo alla staging area:
 
     $ git diff
 
-Per vedere quanto è stato posto in staging area (e motivo per cui è utile usarla):
+Per vedere quanto è stato posto in staging area (**e motivo per cui è utile usarla**):
 
     $ git diff --staged
+
+-----
+
+## Le basi: tag
+
+Un tag è un puntatore ad un commit:
+
+    $ git tag -a v1.0
+
+<br />
+
+### Bonus track
+
+* esistono sia i tag *lightweight* che *annotated*. La differenza principale è che i primi sono solo dei puntatori, i secondi sono oggetti completi: hanno un author e possono essere firmati.
 
 ---
 
@@ -278,6 +276,11 @@ Riportare un file modificato nell'ultimo stato committato/staged:
 
     $ git checkout -- file
 
+### Bonus track
+
+* notate come il commit ID viene modificato, con *--amend*, motivo per cui è possibile usarlo solo sull'ultimo commit
+* **git clean -f** per rimuovere tutti i file untracked
+
 -----
 
 ## Aggiustare i danni: più forte
@@ -294,8 +297,8 @@ Voglio creare un nuovo commit che annulla le modifiche introdotte da un commit p
 
 ### Bonus track
 
-* maggiori informazioni sul reset: https://stackoverflow.com/questions/3528245/whats-the-difference-between-git-reset-mixed-soft-and-hard
-* workflow per risolvere problemi: http://justinhileman.info/article/git-pretty/git-pretty.png
+* maggiori [informazioni sul reset](https://stackoverflow.com/questions/3528245/whats-the-difference-between-git-reset-mixed-soft-and-hard)
+* workflow [per risolvere problemi](http://justinhileman.info/article/git-pretty/git-pretty.png)
 
 ---
 
@@ -347,7 +350,7 @@ Creare e spostarsi in un singolo comando:
 
 * **refs**: nome collettivo per riferirsi ad HEAD, branches, tags
 
-* dare nomi significativi; usate prefissi come *bugfix/*, *fix/*, *improvement/*, *feature/*, *task/*) e issue di riferimento
+* dare [nomi significativi](http://www.guyroutledge.co.uk/blog/git-branch-naming-conventions/); usate prefissi come *bugfix/*, *fix/*, *improvement/*, *feature/*, *task/*) e issue di riferimento
 
 * possono essere logicamente suddivise: *feature* (o *topic*), *release*, *integration* branches e così via
 
@@ -371,9 +374,9 @@ Creare e spostarsi in un singolo comando:
 
 ## Merge: cosa è successo?
 
-**fast-forward**! master era più indietro rispetto a fix/bug-123, e quindi abbiamo semplicemente spostato il puntatore master.
+**fast-forward**!
 
-Non è stato neppure creato un nuovo commit.
+master era più indietro rispetto a fix/bug-123, e quindi abbiamo semplicemente spostato il puntatore master. Non è stato neppure creato un nuovo commit.
 
 Il comando commit ha le opzioni **--ff-only** e **--no-ff** per decidere come comportarsi.
 
@@ -474,7 +477,7 @@ Scaricare gli aggiornamenti dal remoto e mergiare il branch corrente:
 
 * **local tracking branch**: un branch locale su cui è possibile lavorare direttamente, che traccia un altro branch (di norma, un remote tracking branch)
 
-* l'associazione tra branch remoti e locali viene effettuata in automatico, in base al nome del branch: se nel repository remoto esiste *origin/branch-1*, il comando *git checkout branch-1* crea un local tracking branch che traccia il remote tracking branch *origin/branch-1*
+* il local tracking di branch remoti viene effettuato in automatico, in base al nome del branch: se nel repository remoto esiste *origin/branch-1*, il comando *git checkout branch-1* crea un local tracking branch che traccia il remote tracking branch *origin/branch-1*
 
 -----
 
@@ -486,7 +489,7 @@ Aggiungere al repository remoto un branch locale:
 
 Inviare i cambiamenti locali ad un branch remoto:
 
-    $ git push --tags [origin [master]]
+    $ git push [--tags] [origin [master]]
 
 <br />
 
@@ -751,7 +754,7 @@ Salire di un livello, seguendo il secondo parent commit (in caso di merge):
 <img style="width:300px" src="images/range-log.png" data-action="zoom">
 <img style="width:300px" src="images/range-diff.png" data-action="zoom">
 
-Vedere anche: https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif
+Vedere anche [questa spiegazione](https://stackoverflow.com/questions/7251477/what-are-the-differences-between-double-dot-and-triple-dot-in-git-dif)
 
 ---
 
@@ -849,9 +852,12 @@ Ad esempio quando non si vuole includere in un commit una riga di debug, che per
 
 ## Creare e applicare patch
 
-è possibile creare e riapplicare una patch usando i comandi:
+è possibile creare una patch usando il comando:
 
     $ git format-patch [refs]
+
+per poi applicarla con:
+
     $ git apply patch-file.diff
 
 -----
@@ -880,7 +886,7 @@ La history mostra solo i commit inclusi in un branch.
 
 Per vedere TUTTI gli spostamenti di HEAD:
 
-    $ git reflog [--relative-date]
+    $ git reflog [@{2 weeks ago}]
 
 <br />
 
@@ -935,8 +941,10 @@ Per vedere TUTTI gli spostamenti di HEAD:
 
 <br />
 
-### git clone https://git.lattuga.net/alberanid/git-crash-course.git
+**git clone https://git.lattuga.net/alberanid/git-crash-course.git**
 
 <br />
+### Davide Alberani <da@erlug.linux.it>
+
 <br />
-## Davide Alberani <da@erlug.linux.it>
+This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License: http://creativecommons.org/licenses/by-sa/4.0/
