@@ -6,6 +6,7 @@
 Non-corso per non prendere a martellate il monitor quando usate Git.
 
 <br />
+<br />
 
 **git clone https://git.lattuga.net/alberanid/git-crash-course.git**
 
