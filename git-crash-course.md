@@ -105,6 +105,8 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 * **HEAD**: il punto a cui sarà collegato il prossimo commit (di norma, il branch corrente)
 
+* **refs**: nome collettivo per riferirsi ad HEAD, branches, tags
+
 -----
 
 ## Le basi: prepariamo l'ambiente
@@ -349,8 +351,6 @@ Creare e spostarsi in un singolo comando:
 ## Branches: approfondiamo
 
 * **master** è solamente un default (di norma si considera master "stabile")
-
-* **refs**: nome collettivo per riferirsi ad HEAD, branches, tags
 
 * dare [nomi significativi](http://www.guyroutledge.co.uk/blog/git-branch-naming-conventions/); usate prefissi come *bugfix/*, *fix/*, *improvement/*, *feature/*, *task/*) e issue di riferimento
 
@@ -610,6 +610,10 @@ Prima di tutto è opportuno sincronizzare il proprio branch master con quello up
 
 <img style="width:300px" src="images/worflow-developer-branch.png" data-action="zoom">
 
+### Bonus track
+
+* **MAI** lavorare direttamente su *master*: perdereste la possibilità di sincronizzarlo di nuovo con *upstream*, in futuro
+
 -----
 
 ## Forking workflow: lavoriamo
@@ -630,7 +634,7 @@ Ora va sulla pagina web del proprio fork e crea una **pull request**.
 
 ### Bonus track
 
-* ha senso fare un rebase (e push) su *upstream/master* del feature branch su cui stiamo lavorando, prima di creare la pull request
+* ha senso fare un rebase su *upstream/master* del feature branch su cui stiamo lavorando, prima di creare la pull request (se avete già pushato, servirà un push --force) in modo che il vostro lavoro sia più vicino possibile allo stato attuale di upstream/master
 
 -----
 
@@ -649,7 +653,7 @@ Se dovesse essere necessario, developer o altri possono aggiungere altri commit 
 
 Una volta soddisfatti, project maintainer potrà effettuare il merge del codice su *maintainer:master*.
 
-Se il merge non presenta conflitti, lo farà direttamente dalla GUI web sul repository upstream.
+**Se il merge non presenta conflitti**, lo farà direttamente dalla GUI web sul repository upstream.
 
 Altrimenti dovrà aggiungere un remote che punti al repository di *developer*, fare il fetch di *developer:fix/bug-123*, effettuare il merge su master per poi farne il push sul repository upstream.
 
@@ -661,7 +665,7 @@ Altrimenti dovrà aggiungere un remote che punti al repository di *developer*, f
 
 ## Forking workflow: bugia!
 
-Github e amici non suggeriranno di aggiungere lo sviluppatore come remote, ma di fare direttamente il pull del suo topic branch. È sicuramente più pulito se ricevete molte pull request da tante persone differenti.
+Github e amici non suggeriranno di aggiungere lo sviluppatore come remote, ma di fare direttamente il pull del suo topic branch. È sicuramente più pulito se ricevete molte pull request da tante persone differenti. Se invece il numero di contributori è basso (piccoli progetti, o in ambito lavorativo) ha senso aggiungere i loro repository come remotes.
 
 Nel caso di Github, ad esempio:
 
@@ -691,6 +695,8 @@ Nel caso di Github, ad esempio:
 
 1. aggiorna il proprio master: **git checkout master ; git pull upstream master**
 1. crea un branch su cui lavorare: **git checkout -b fix/bug-123**
+1. lavora un sacco: **git commit**
+1. opzionalmente, fa il rebase: **git rebase upstream/master**
 1. invia le modifiche al proprio repository remoto: **git push --set-upstream origin fix/bug-123**
 1. crea sul web una pull request
 1. se serve, integra il lavoro semplicemente pushando altri commit fatti su fix/bug-123
@@ -871,9 +877,9 @@ Mettere da parte il lavoro nella working directory senza committare, e mostrare 
     $ git stash
     $ git stash list
 
-Riapplicare una modifica messa in stash, ed eliminarne uno:
+Riapplicare una modifica messa in stash, ed eliminarne uno (**stash pop** combina i due comandi):
 
-    $ git stash pop stash@{0}
+    $ git stash apply stash@{0}
     $ git stash drop stash@{0}
 
 ### Quando usarlo?
