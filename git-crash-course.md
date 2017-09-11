@@ -50,6 +50,7 @@ Una serie di strumenti avanzati, per chi ci ha preso gusto e vuole approfondire 
 ## Cosa NON verrà trattato
 
 * gli internals (plumbing) di Git
+* *Github* (sorry, è solo un servizio di hosting)
 * le GUI
 * amministrazione di un repository remoto
 * flame wars sui workflow
