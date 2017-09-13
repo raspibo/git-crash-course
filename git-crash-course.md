@@ -202,6 +202,7 @@ Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nos
 ### Bonus track
 
 * indovinate cosa fanno **git rm** e **git mv**
+* [committate spesso](https://sethrobertson.github.io/GitBestPractices/)
 * come scrivere un messaggio di commit [che non susciti sgomento](https://chris.beams.io/posts/git-commit/)? Issue, titolo breve, descrizione estesa
 * non salva directory vuote; se servono, aggiungete un file *.gitkeep* (è solo una convenzione)
 * creare un file .gitignore per ignorare certi file
@@ -237,6 +238,7 @@ Si può limitare agli ultimi N commit con ***-N***
 
 * visualizzare solo i commit che hanno coinvolto un dato file: **git log -- file.txt**
 * per avere informazioni su un singolo commit, si può anche usare **git show**
+* per visualizzare quali commit hanno influenzato le singole righe di un file (e vedere chi le ha editate): **git blame file.txt**
 
 -----
 
@@ -353,6 +355,8 @@ Creare e spostarsi in un singolo comando:
 * **master** è solamente un default (di norma si considera master "stabile")
 
 * dare [nomi significativi](http://www.guyroutledge.co.uk/blog/git-branch-naming-conventions/); usate prefissi come *bugfix/*, *fix/*, *improvement/*, *feature/*, *task/*) e issue di riferimento
+
+* prendete l'abitudine, **tutte** le volte che sviluppate un fix o una nuova feature, di farlo in un nuovo branch (che di norma partirà da *master*)
 
 * possono essere logicamente suddivise: *feature* (o *topic*), *release*, *integration* branches e così via
 
@@ -585,6 +589,7 @@ Il developer ora:
 Developer fa un **clone** locale del proprio repository remoto. È una buona idea aggiungere un remote "**upstream**" che punti al repository del maintainer:
 
     $ git clone https://git.lattuga.net/developer/repo.git
+    $ cd repo
     $ git remote add upstream https://git.lattuga.net/maintainer/repo.git
 
 <img style="width:300px" src="images/worflow-developer-clone.png" data-action="zoom">
@@ -918,9 +923,12 @@ Per vedere TUTTI gli spostamenti di HEAD:
 
 ## Pezzi mancanti
 
-* git submodule
-* git bisect
-* git gui; gitk
+* [git submodule](https://git-scm.com/docs/git-submodule): gestire altri repository come sotto-moduli
+* [git subtree](https://developer.atlassian.com/blog/2015/05/the-power-of-git-subtree/): inserire un repository in una sottodirectory
+* [git bisect](https://git-scm.com/docs/git-bisect): cercare il commit in cui è stato introdotto un bug
+* [git gui](https://git-scm.com/docs/git-gui) e [gitk](https://git-scm.com/docs/gitk): GUI per visualizzare commit e repository
+* [tig](https://jonas.github.io/tig/): interfaccia testuale
+* [Gitgraph.js](http://gitgraphjs.com/): creare grafi di commit e branch
 
 ---
 
