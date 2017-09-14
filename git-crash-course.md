@@ -404,7 +404,7 @@ Il comando commit ha le opzioni **--ff-only** e **--no-ff** per decidere come co
 
 ### Bonus track
 
-* quali commit fanno parte del branch fix/bug-123?
+* quali commit fanno parte del branch fix/bug-123 e quali di master?
 
 -----
 
