@@ -40,10 +40,14 @@ Una serie di strumenti avanzati, per chi ci ha preso gusto e vuole approfondire 
 
 ## Cosa verrà trattato
 
-* i comandi essenziali (porcelain) da riga di comando
+* i comandi essenziali (*porcelain*) da riga di comando. *[La metafora degli elementi **porcelain**, ossia di ceramica (come il lavandino, il bidet e il water), in contrapposizione agli elementi **plumbing** cioè tubature), è usata in Git per distinguere i comandi di alto livello, user-friendly (i porcelain, appunto) da quelli di basso livello utilizzati raramente (i plumbing).]*
+
 * come gestire i branch
+
 * le basi per lavorare con repository remoti
+
 * un workflow per collaborare con altri sviluppatori
+    
 
 -----
 
@@ -53,7 +57,8 @@ Una serie di strumenti avanzati, per chi ci ha preso gusto e vuole approfondire 
 * *Github* (sorry, è solo un servizio di hosting)
 * le GUI
 * amministrazione di un repository remoto
-* flame wars sui workflow
+* flame wars (discussioni) sui tipi di workflow
+
 
 -----
 
