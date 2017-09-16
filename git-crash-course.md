@@ -275,7 +275,7 @@ Un tag è un puntatore ad un commit:
 
 ## Aggiustare i danni
 
-Modificare l'ultimo commit (aggiungere un file, modificare il commit message o l'autore, ...):
+Modificare l'ultimo commit (cambiare il commit message o l'autore, oppure modificare un file - in questo caso va prima modificato nella working directory e fatto *git add*):
 
     $ git commit --amend [--author="Name Surname <user@example.com>"]
 
