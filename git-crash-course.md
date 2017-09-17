@@ -506,7 +506,7 @@ Inviare i cambiamenti locali ad un branch remoto:
 
 ### Bonus track
 
-* git push di default non invia i tags
+* git push di default non invia i tags, che vanno pushati separatamente aggiungendo --tags
 * cancellare un branch remoto: **git push -d origin branch-name**
 
 -----
