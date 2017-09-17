@@ -158,8 +158,9 @@ Colori, es.:
 
 User di github
 
-    $ git config --global github.user danielamazza
-    
+    $ git config --global github.username [nome]
+
+
 
 ---
 
