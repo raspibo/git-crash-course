@@ -143,6 +143,23 @@ Priorità: *local* > *global* > *system*
 
 ### Alcune opzioni
 
+Alias per abbreviare i comandi, es.:
+
+    $ git config --global alias.s status
+    $ git config --global alias.a "add -all"
+    $ git config --global alias.c "commit -m"
+
+Colori, es.:
+
+    $ git config --global color.branch.current "yellow bold"
+    $ git config --global color.branch.local "green bold"
+    $ git config --global color.branch.remote "cyan bold"
+    $ git config --global color.status.added "green bold
+
+User di github
+
+    $ git config --global github.user danielamazza
+    
 
 ---
 
