@@ -368,7 +368,7 @@ Spostarsi su un branch:
 
     $ git checkout fix/bug-123
 
-Creare e spostarsi in un singolo comando:
+Creare e spostarsi in un singolo comando (può essere usato solo se il branch non esiste ancora):
 
     $ git checkout -b fix/bug-123
 
@@ -394,7 +394,7 @@ Creare e spostarsi in un singolo comando:
 
 ## Rimettere insieme i pezzi: merge
 
-    $ git branch -b fix/bug-123
+    $ git checkout -b fix/bug-123
     $ # editiamo nuovofile.txt
     $ git add nuovofile.txt
     $ git commit
@@ -420,7 +420,8 @@ Il comando commit ha le opzioni **--ff-only** e **--no-ff** per decidere come co
 
 ## Risoluzione dei conflitti
 
-    $ git branch -b fix/bug-123
+    $ git branch fix/bug-123
+    $ git checkout fix/bug-123
     $ # editiamo file.txt
     $ git add file.txt
     $ git commit
