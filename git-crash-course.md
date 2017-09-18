@@ -369,7 +369,7 @@ Creare e spostarsi in un singolo comando:
 
 ## Rimettere insieme i pezzi: merge
 
-    $ git branch -b fix/bug-123
+    $ git checkout -b fix/bug-123
     $ # editiamo nuovofile.txt
     $ git add nuovofile.txt
     $ git commit
