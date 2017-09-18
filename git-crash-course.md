@@ -47,7 +47,6 @@ Una serie di strumenti avanzati, per chi ci ha preso gusto e vuole approfondire 
 * le basi per lavorare con repository remoti
 
 * un workflow per collaborare con altri sviluppatori
-    
 
 -----
 
@@ -120,47 +119,37 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
     $ git config --global user.email da@erlug.linux.it
     $ git config --global color.ui auto
 
-</br>    
+Le configurazioni vengono registrate nei files (in ordine di lettura: i successivi sovrascrivono le impostazioni dei precedenti):
+* **/etc/git/config**: opzioni globali, valide per tutti gli utenti
+* **~/.gitconfig** oppure **~/.config/git/config**: opzioni valide per l'utente corrente
+* **.git/config** nel repository corrente: opzioni locali valide solo per il repository corrente
 
-**Git config** è il comando per personalizzare l'ambiente. Le configurazioni vengono registrate nei files: 
-- **/etc/gitconfig** - opzioni **system**, valide per tutti gli utenti
-- **~/.gitconfig** oppure **~/.gitconfig/git/config** - opzioni **global** valide per l'utente corrente
-- **.git/config** nel repo corrente - opzioni **local** valide solo per il repo corrente
-
-</br>
-
-Priorità: *local* > *global* > *system*
+<br />
 
 ### Bonus track
 
-* cercare un esempio di ~/.gitconfig avanzato, con qualche alias per i comandi principali
-
-[esempio1](https://github.com/alberanid/git-config/blob/master/gitconfig)
-
-[esempio2](https://gist.github.com/pksunkara/988716)
+* cercare un esempio di ~/.gitconfig avanzato, con qualche alias per i comandi principali, come [questo](https://github.com/alberanid/git-config/blob/master/gitconfig) [questo](https://gist.github.com/pksunkara/988716)
 
 -----
 
-### Alcune opzioni
+### Le basi: alcune opzioni di configurazione
 
-Alias per abbreviare i comandi, es.:
+Alias comuni:
 
-    $ git config --global alias.s status
-    $ git config --global alias.a "add -all"
-    $ git config --global alias.c "commit -m"
+    $ git config --global alias.st status
+    $ git config --global alias.br branch
+    $ git config --global alias.co checkout
 
-Colori, es.:
+Colori:
 
     $ git config --global color.branch.current "yellow bold"
     $ git config --global color.branch.local "green bold"
     $ git config --global color.branch.remote "cyan bold"
-    $ git config --global color.status.added "green bold
+    $ git config --global color.status.added "green bold"
 
-User di github
+Utente di Github:
 
     $ git config --global github.username [nome]
-
-
 
 ---
 
