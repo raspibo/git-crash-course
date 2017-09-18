@@ -395,7 +395,7 @@ Il comando commit ha le opzioni **--ff-only** e **--no-ff** per decidere come co
 
 ## Risoluzione dei conflitti
 
-    $ git branch -b fix/bug-123
+    $ git checkout [-b] fix/bug-123 #Il parametro -b va usato se il branch fix/bug-123 non e' gia stato creato (slide precedente)
     $ # editiamo file.txt
     $ git add file.txt
     $ git commit
