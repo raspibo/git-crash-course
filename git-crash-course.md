@@ -114,17 +114,53 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 -----
 
-## Le basi: prepariamo l'ambiente
+## Le basi: prepariamo l'ambiente con git config
 
     $ git config --global user.name "Davide Alberani"
     $ git config --global user.email da@erlug.linux.it
     $ git config --global color.ui auto
 
-<br />
+</br>    
+
+**Git config** è il comando per personalizzare l'ambiente. Le configurazioni vengono registrate nei files: 
+- **/etc/gitconfig** - opzioni **system**, valide per tutti gli utenti
+- **~/.gitconfig** oppure **~/.gitconfig/git/config** - opzioni **global** valide per l'utente corrente
+- **.git/config** nel repo corrente - opzioni **local** valide solo per il repo corrente
+
+</br>
+
+Priorità: *local* > *global* > *system*
 
 ### Bonus track
 
 * cercare un esempio di ~/.gitconfig avanzato, con qualche alias per i comandi principali
+
+[esempio1](https://github.com/alberanid/git-config/blob/master/gitconfig)
+
+[esempio2](https://gist.github.com/pksunkara/988716)
+
+-----
+
+### Alcune opzioni
+
+Alias per abbreviare i comandi, es.:
+
+    $ git config --global alias.s status
+    $ git config --global alias.a "add -all"
+    $ git config --global alias.c "commit -m"
+
+Colori, es.:
+
+    $ git config --global color.branch.current "yellow bold"
+    $ git config --global color.branch.local "green bold"
+    $ git config --global color.branch.remote "cyan bold"
+    $ git config --global color.status.added "green bold
+
+User di github
+
+    $ git config --global github.username [nome]
+
+
 
 ---
 
