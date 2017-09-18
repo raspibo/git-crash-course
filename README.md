@@ -18,6 +18,6 @@ Le slides sono in formato markdown, e possono essere [visualizzate direttamente]
 
 ## Licenza
 
-Davide Alberani <da@erlug.linux.it> 2017
+Copyright 2017 Davide Alberani <da@erlug.linux.it>, RaspiBO <info@raspibo.org>
 
 This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License: http://creativecommons.org/licenses/by-sa/4.0/
