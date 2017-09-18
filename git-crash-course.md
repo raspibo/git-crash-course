@@ -394,7 +394,7 @@ Creare e spostarsi in un singolo comando:
 
 ## Rimettere insieme i pezzi: merge
 
-    $ git branch -b fix/bug-123
+    $ git checkout -b fix/bug-123
     $ # editiamo nuovofile.txt
     $ git add nuovofile.txt
     $ git commit
@@ -420,7 +420,7 @@ Il comando commit ha le opzioni **--ff-only** e **--no-ff** per decidere come co
 
 ## Risoluzione dei conflitti
 
-    $ git branch -b fix/bug-123
+    $ git checkout [-b] fix/bug-123 #Il parametro -b va usato se il branch fix/bug-123 viene creato ora. Se gia' presente (es: creato nella slide precedente) non viene fatto il checkout.
     $ # editiamo file.txt
     $ git add file.txt
     $ git commit
