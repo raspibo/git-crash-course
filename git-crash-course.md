@@ -47,7 +47,6 @@ Una serie di strumenti avanzati, per chi ci ha preso gusto e vuole approfondire 
 * le basi per lavorare con repository remoti
 
 * un workflow per collaborare con altri sviluppatori
-    
 
 -----
 
@@ -114,17 +113,43 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 -----
 
-## Le basi: prepariamo l'ambiente
+## Le basi: prepariamo l'ambiente con git config
 
     $ git config --global user.name "Davide Alberani"
     $ git config --global user.email da@erlug.linux.it
     $ git config --global color.ui auto
 
+Le configurazioni vengono registrate nei files (in ordine di lettura: i successivi sovrascrivono le impostazioni dei precedenti):
+* **/etc/git/config**: opzioni globali, valide per tutti gli utenti
+* **~/.gitconfig** oppure **~/.config/git/config**: opzioni valide per l'utente corrente
+* **.git/config** nel repository corrente: opzioni locali valide solo per il repository corrente
+
 <br />
 
 ### Bonus track
 
-* cercare un esempio di ~/.gitconfig avanzato, con qualche alias per i comandi principali
+* cercare un esempio di ~/.gitconfig avanzato, con qualche alias per i comandi principali, come [questo](https://github.com/alberanid/git-config/blob/master/gitconfig) [questo](https://gist.github.com/pksunkara/988716)
+
+-----
+
+### Le basi: alcune opzioni di configurazione
+
+Alias comuni:
+
+    $ git config --global alias.st status
+    $ git config --global alias.br branch
+    $ git config --global alias.co checkout
+
+Colori:
+
+    $ git config --global color.branch.current "yellow bold"
+    $ git config --global color.branch.local "green bold"
+    $ git config --global color.branch.remote "cyan bold"
+    $ git config --global color.status.added "green bold"
+
+Utente di Github:
+
+    $ git config --global github.username [nome]
 
 ---
 
