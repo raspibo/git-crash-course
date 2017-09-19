@@ -179,7 +179,7 @@ Clonare un repository remoto esistente:
 
 ### Bonus track
 
-* i repository remoti vengono di norma creati con **--bare** e non hanno working directory
+* i repository remoti, in cui non si lavora direttamente ma ricevono solo comandi push e pull, vengono di norma creati con **--bare** e non hanno working directory. Sono repo usati per **condividere**. Gli sviluppatori clonano il *shared bare repo*, fanno modifiche locali nelle loro working repo e fanno push nel *shared bare repo* per rendere le modifiche disponibili agli altri. Siccome nessuno edita direttamente nel *shared bare repo*, non serve avere un working tree. Anzi, questo potrebbe essere causa di conflitto.
 
 -----
 
