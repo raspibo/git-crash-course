@@ -335,6 +335,7 @@ Voglio creare un nuovo commit che annulla le modifiche introdotte da un commit p
 
 * maggiori [informazioni sul reset](https://stackoverflow.com/questions/3528245/whats-the-difference-between-git-reset-mixed-soft-and-hard)
 * workflow [per risolvere problemi](http://justinhileman.info/article/git-pretty/git-pretty.png)
+* [qualche comando utile](http://ohshitgit.com/) per risolvere i guai fatti
 
 ---
 
