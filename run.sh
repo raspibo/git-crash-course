@@ -2,7 +2,7 @@
 
 git submodule init
 git submodule update 2> /dev/null
-mkdir -p reveal.js/js/
+mkdir -p reveal.js/js/ reveal.js/css/ reveal.js/images/
 cp js/* reveal.js/js/
 cp css/* reveal.js/css/
 cp images/* reveal.js/images/
