@@ -1,6 +1,6 @@
 # Git crash course
 
-## Davide Alberani <da@erlug.linux.it> 2017
+## Davide Alberani <da@erlug.linux.it> 2017-2018
 
 <br />
 Non-corso per non prendere a martellate il monitor quando usate Git.
@@ -65,7 +65,7 @@ Una serie di strumenti avanzati, per chi ci ha preso gusto e vuole approfondire 
 
 Un sistema di controllo versione distribuito.
 
-Serve per tener traccia dei cambiamenti al proprio codice e per facilitare lo sviluppo condiviso. Va ricordato che Git è nato soprattutto per aiutare chi deve integrare il codice altrui, e non tanto per il singolo sviluppatore.
+Serve per tener traccia dei cambiamenti al proprio codice e per facilitare lo sviluppo condiviso. Va ricordato che Git è nato soprattutto per aiutare chi deve integrare il codice altrui, e questo si riflette sulla sua logica.
 
 <br />
 Il resto [lo spiega meglio Wikipedia](https://it.wikipedia.org/wiki/Git%5F%28software%29).
@@ -128,7 +128,7 @@ Le configurazioni vengono registrate nei files (in ordine di lettura: i successi
 
 ### Bonus track
 
-* cercare un esempio di ~/.gitconfig avanzato, con qualche alias per i comandi principali, come [questo](https://github.com/alberanid/git-config/blob/master/gitconfig) [questo](https://gist.github.com/pksunkara/988716)
+* cercare un esempio di ~/.gitconfig avanzato, con qualche alias per i comandi principali, come [questo](https://github.com/alberanid/git-config/blob/master/gitconfig) o [quest'altro](https://gist.github.com/pksunkara/988716)
 
 -----
 
@@ -453,7 +453,7 @@ Mergiamo:
 
 ### Bonus track
 
-* che succede se cancelliamo fix/bug-123?
+* che succede al commit *C* se cancelliamo fix/bug-123?
 
 -----
 
@@ -534,7 +534,7 @@ Inviare i cambiamenti locali ad un branch remoto:
 ### Bonus track
 
 * git push di default non invia i tags, che vanno pushati separatamente aggiungendo --tags
-* cancellare un branch remoto: **git push -d origin branch-name**
+* cancellare un branch remoto: **git push --delete origin branch-name**
 
 -----
 
