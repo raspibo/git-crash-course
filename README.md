@@ -2,6 +2,10 @@
 
 Corso di base su Git per RaspiBO.
 
+## English version
+
+An English translation is available at https://git.lattuga.net/alberanid/git-crash-course-en
+
 ## Build & run
 
 Sì, ringraziamo npm, node, reveal.js e chiunque pensi che tutto ciò sia una buona idea, se ci troviamo nella disgraziata situazione di dover buildare ed eseguire delle slides.

@@ -957,6 +957,7 @@ Per vedere TUTTI gli spostamenti di HEAD:
 
 * [git submodule](https://git-scm.com/docs/git-submodule): gestire altri repository come sotto-moduli
 * [git subtree](https://developer.atlassian.com/blog/2015/05/the-power-of-git-subtree/): inserire un repository in una sottodirectory
+* [repo](https://source.android.com/setup/build/downloading): gestire repository multipli
 * [git bisect](https://git-scm.com/docs/git-bisect): cercare il commit in cui è stato introdotto un bug
 * [git gui](https://git-scm.com/docs/git-gui) e [gitk](https://git-scm.com/docs/gitk): GUI per visualizzare commit e repository
 * [tig](https://jonas.github.io/tig/): interfaccia testuale
@@ -968,6 +969,7 @@ Per vedere TUTTI gli spostamenti di HEAD:
 
 ## Risorse per imparare
 
+* Versione inglese di queste slides: https://git.lattuga.net/alberanid/git-crash-course-en
 * Pro Git: https://git-scm.com/book/en/
 * Reference: https://git-scm.com/docs
 * Learn Git Branching: http://learngitbranching.js.org/
@@ -975,8 +977,6 @@ Per vedere TUTTI gli spostamenti di HEAD:
 * Git Cookbook: https://git.seveas.net/
 * tutorial di Atlassian: https://www.atlassian.com/git/tutorials
 * A visual Git reference: https://marklodato.github.io/visual-git-guide/index-en.html
-
-<br />
 
 ### Utilità
 
