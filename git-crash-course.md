@@ -1,6 +1,6 @@
 # Git crash course
 
-## Davide Alberani <da@erlug.linux.it> 2017-2018
+## Davide Alberani <da@mimante.net> 2017-2026
 
 <br />
 Non-corso per non prendere a martellate il monitor quando usate Git.
@@ -116,7 +116,7 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 ## Le basi: prepariamo l'ambiente con git config
 
     $ git config --global user.name "Davide Alberani"
-    $ git config --global user.email da@erlug.linux.it
+    $ git config --global user.email da@mimante.net
     $ git config --global color.ui auto
 
 Le configurazioni vengono registrate nei files (in ordine di lettura: i successivi sovrascrivono le impostazioni dei precedenti):
@@ -993,7 +993,7 @@ Per vedere TUTTI gli spostamenti di HEAD:
 
 <br />
 
-### Davide Alberani <da@erlug.linux.it>
+### Davide Alberani <da@mimante.net>
 
 <br />
 This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License: http://creativecommons.org/licenses/by-sa/4.0/

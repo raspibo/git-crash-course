@@ -1,13 +1,14 @@
 #!/bin/bash
+set -euo pipefail
 
-git submodule init
-git submodule update 2> /dev/null
-mkdir -p reveal.js/js/ reveal.js/css/ reveal.js/images/
-cp js/* reveal.js/js/
-cp css/* reveal.js/css/
-cp images/* reveal.js/images/
-rm -f reveal.js/index.html reveal.js/git-crash-course.md
-ln index.html git-crash-course.md reveal.js/ 2> /dev/null
-cd reveal.js
-npm install
-npm start
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
+
+if ! command -v python3 >/dev/null 2>&1; then
+    echo "Python 3 is required to serve the slides." >&2
+    exit 1
+fi
+
+git submodule update --init -- reveal.js
+
+# reveal.js includes compiled assets; its development dependencies are unnecessary.
+exec python3 -m http.server "${PORT:-8000}" --bind "${HOST:-127.0.0.1}"
