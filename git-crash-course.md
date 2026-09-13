@@ -53,7 +53,7 @@ Una serie di strumenti avanzati, per chi ci ha preso gusto e vuole approfondire 
 ## Cosa NON verrà trattato
 
 * gli internals (**plumbing**) di Git
-* *Github* (sorry, è solo un servizio di hosting)
+* *GitHub* (sorry, è solo un servizio di hosting)
 * le GUI
 * amministrazione di un repository remoto
 * flame wars (discussioni) sui tipi di workflow
@@ -85,7 +85,7 @@ Il resto [lo spiega meglio Wikipedia](https://it.wikipedia.org/wiki/Git%5F%28sof
 *Git non avrà segreti per voi, una volta compreso...*
 
 * ...il data model (objects, blobs, trees, commits, refs, tags, ...)
-* ...il fatto che tutto è locale
+* ...il fatto che quasi tutte le operazioni sono locali (fetch, pull e push comunicano con altri repository)
 * ...che i commit sono in realtà snapshot, e non delta rispetto allo stato precedente
 * ...una qualche astrusa teoria a caso
 
@@ -103,13 +103,13 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
 
 * **Staging area** (o **Index**): dove mettiamo da parte le modifiche che finiranno nel prossimo commit
 
-* **Commit**: snapshot dello stato in un certo momento
+* **Commit**: snapshot dei file versionati, con metadati e riferimenti ai commit genitori
 
 * (fare) **Checkout**: aggiornare i file nella working directory ad un dato branch/commit/...
 
-* **HEAD**: il punto a cui sarà collegato il prossimo commit (di norma, il branch corrente)
+* **HEAD**: riferimento alla posizione corrente nella storia; di norma punta al branch corrente, che punta a un commit
 
-* **refs**: nome collettivo per riferirsi ad HEAD, branches, tags
+* **refs**: riferimenti con un nome, come branch e tag; HEAD è un riferimento speciale
 
 -----
 
@@ -119,9 +119,11 @@ Tutto vero, ma la sua user interface è un mezzo disastro.
     $ git config --global user.email da@mimante.net
     $ git config --global color.ui auto
 
-Le configurazioni vengono registrate nei files (in ordine di lettura: i successivi sovrascrivono le impostazioni dei precedenti):
-* **/etc/git/config**: opzioni globali, valide per tutti gli utenti
-* **~/.gitconfig** oppure **~/.config/git/config**: opzioni valide per l'utente corrente
+Nome ed email identificano l’autore dei commit: non sono credenziali di accesso. Usate i vostri dati.
+
+I principali file di configurazione, in ordine di precedenza crescente:
+* **/etc/gitconfig** (il percorso dipende dall’installazione): opzioni di sistema, valide per tutti gli utenti
+* **~/.config/git/config**, poi **~/.gitconfig**: opzioni valide per l’utente corrente; se esistono entrambi, Git li legge entrambi
 * **.git/config** nel repository corrente: opzioni locali valide solo per il repository corrente
 
 <br />
@@ -147,9 +149,9 @@ Colori:
     $ git config --global color.branch.remote "cyan bold"
     $ git config --global color.status.added "green bold"
 
-Utente di Github:
+Verificare valori e file di provenienza:
 
-    $ git config --global github.username [nome]
+    $ git config --list --show-origin
 
 ---
 
@@ -163,11 +165,14 @@ In cui forniamo le basi per lavorare in locale e con repository remoti.
 
 Creare un nuovo repository partendo da una directory (vuota o meno):
 
-    $ git init
+    $ git init -b main
+
+Negli esempi usiamo **main** come branch principale; i repository più vecchi possono usare **master**. L’opzione **-b** richiede Git 2.28 o successivo.
 
 Clonare un repository remoto esistente:
 
     $ git clone https://git.lattuga.net/user/repo.git
+    $ cd repo
 
 -----
 
@@ -179,7 +184,7 @@ Clonare un repository remoto esistente:
 
 ### Bonus track
 
-* i repository remoti, in cui non si lavora direttamente ma ricevono solo comandi push e pull, vengono di norma creati con **--bare** e non hanno working directory. Sono repo usati per **condividere**. Gli sviluppatori clonano il *shared bare repo*, fanno modifiche locali nelle loro working repo e fanno push nel *shared bare repo* per rendere le modifiche disponibili agli altri. Siccome nessuno edita direttamente nel *shared bare repo*, non serve avere un working tree. Anzi, questo potrebbe essere causa di conflitto.
+* i repository remoti, in cui non si lavora direttamente ma ricevono push e forniscono dati ai fetch, vengono di norma creati con **--bare** e non hanno working directory. Sono repo usati per **condividere**. Gli sviluppatori clonano il *shared bare repo*, fanno modifiche locali nelle loro working repo e fanno push nel *shared bare repo* per rendere le modifiche disponibili agli altri. Siccome nessuno edita direttamente nel *shared bare repo*, non serve avere un working tree. Anzi, questo potrebbe essere causa di conflitto.
 
 -----
 
@@ -187,9 +192,11 @@ Clonare un repository remoto esistente:
 
 ## Le basi: status
 
-Vedere lo stato del sistema (usatelo spesso! un utile [cheatsheet](https://ndpsoftware.com/git-cheatsheet.html)):
+Vedere lo stato del repository (usatelo spesso! un utile [cheatsheet](https://ndpsoftware.com/git-cheatsheet.html)):
 
     $ git status [-s]
+
+Negli esempi **$** è il prompt: non va digitato. Le **[parentesi quadre]** indicano parti facoltative; i **`<segnaposto>`** vanno sostituiti.
 
 <br />
 
@@ -203,6 +210,8 @@ Vedere lo stato del sistema (usatelo spesso! un utile [cheatsheet](https://ndpso
 
 * **Staged**: nella staging area, pronti per il prossimo commit
 
+Un file può avere sia modifiche staged sia modifiche non staged.
+
 <img style="width:300px" src="images/file-states.png" data-action="zoom">
 
 ---
@@ -213,9 +222,13 @@ Modifichiamo un file ed aggiungiamolo alla staging area:
 
     $ git add prova.txt
 
-Committiamolo:
+**git add** prepara il contenuto attuale del file: se lo modificate ancora, ripetete add per includere anche le nuove modifiche.
+
+Creiamo il commit:
 
     $ git commit [-m "messaggio di commit"]
+
+Il commit salva la staging area in locale. Senza **-m** si apre l’editor per il messaggio.
 
 Verifichiamo quanto accaduto:
 
@@ -235,15 +248,15 @@ Abbiamo aggiunto un file alla staging area, per poi salvare uno snapshot del nos
 * [committate spesso](https://sethrobertson.github.io/GitBestPractices/)
 * come scrivere un messaggio di commit [che non susciti sgomento](https://chris.beams.io/posts/git-commit/)? Issue, titolo breve, descrizione estesa
 * non salva directory vuote; se servono, aggiungete un file *.gitkeep* (è solo una convenzione)
-* creare un file .gitignore per ignorare certi file
+* creare un file **.gitignore** per escludere file non tracciati: non smette di versionare quelli già tracciati
 
 -----
 
 ## Cosa sono i commit
 
-Sono uno snapshot dell'intero stato del sistema in un dato momento, **identificati da un hash** (e.g.: *6d7696a8b894c8ef039d6fd2ecdc514a2efe16b5*).
+Sono uno snapshot dei file versionati presenti nella staging area in un dato momento, **identificati da un hash** (e.g.: *6d7696a8b894c8ef039d6fd2ecdc514a2efe16b5*).
 
-I commit hash sono generati partendo da: messaggio, committer, author, dates, tree, parent hash.
+L’hash dipende dal contenuto del commit: messaggio, autore, committer, date, albero dei file e hash dei genitori (nessuno per il commit iniziale, più di uno per un merge).
 
 <br />
 
@@ -258,7 +271,7 @@ I commit hash sono generati partendo da: messaggio, committer, author, dates, tr
 
     $ git log [--stat] [--patch] [--graph] [--decorate] [--color] [-2]
 
-Rappresenta la storia dei commit dal punto corrente (o da/a qualsiasi punto indicato) fino al primo commit.
+Mostra i commit raggiungibili da HEAD (o dai riferimenti indicati), seguendo i genitori. Con **--all** include tutti i branch e gli altri riferimenti.
 
 Si può limitare agli ultimi N commit con ***-N***
 
@@ -274,11 +287,11 @@ Si può limitare agli ultimi N commit con ***-N***
 
 ## Le basi: diff
 
-Modifichiamo un file, senza aggiungerlo alla staging area:
+Confrontare la working directory con la staging area (esclusi i file untracked):
 
     $ git diff
 
-Per vedere quanto è stato posto in staging area (**e motivo per cui è utile usarla**):
+Confrontare la staging area con l’ultimo commit (**ciò che finirà nel prossimo commit**):
 
     $ git diff --staged
 
@@ -294,7 +307,7 @@ Un tag è un puntatore ad un commit:
 
 ### Bonus track
 
-* esistono sia i tag *lightweight* che *annotated*. La differenza principale è che i primi sono solo dei puntatori, i secondi sono oggetti completi: hanno un author e possono essere firmati.
+* esistono sia i tag *lightweight* che *annotated*. La differenza principale è che i primi sono solo dei puntatori, i secondi sono oggetti completi: hanno autore del tag, data e messaggio, e possono essere firmati. A differenza dei branch, i tag non avanzano con i nuovi commit.
 
 ---
 
@@ -304,18 +317,18 @@ Modificare l'ultimo commit (cambiare il commit message o l'autore, oppure modifi
 
     $ git commit --amend [--author="Name Surname <user@example.com>"]
 
-Un file stato aggiunto per sbaglio alla staging area:
+Togliere un file dalla staging area, mantenendo le modifiche nella working directory:
 
     $ git reset HEAD -- file
 
-Riportare un file modificato nell'ultimo stato committato/staged:
+Sovrascrivere un file nella working directory con la versione nella staging area (**perde le modifiche non staged**):
 
     $ git checkout -- file
 
 ### Bonus track
 
-* notate come il commit ID viene modificato, con *--amend*, motivo per cui è possibile usarlo solo sull'ultimo commit
-* **git clean -f** per rimuovere tutti i file untracked
+* **--amend** sostituisce l’ultimo commit con uno nuovo: evitatelo sui commit già condivisi
+* **git clean -n** mostra i file untracked che **git clean -f** eliminerebbe definitivamente; senza **-d** non rimuove le directory untracked, e i file ignorati sono esclusi
 
 -----
 
@@ -325,9 +338,13 @@ Ho fatto un casino nella working directory.  Riportiamo tutto allo stato dell'ul
 
     $ git reset --hard HEAD
 
+**Perde le modifiche non committate ai file tracciati**, anche staged. Può eliminare file untracked che impediscono il ripristino; non è una pulizia generale degli untracked.
+
 Voglio creare un nuovo commit che annulla le modifiche introdotte da un commit precedente:
 
     $ git revert [-n] <commit>
+
+Con **-n** prepara l’annullamento senza creare il commit. In caso di conflitti: risolvere, fare **git add**, poi **git revert --continue**; per annullare: **git revert --abort**.
 
 <br />
 
@@ -341,7 +358,7 @@ Voglio creare un nuovo commit che annulla le modifiche introdotte da un commit p
 
 ## Branches: cosa sono e perché usarli?
 
-Sono puntatori mobili, spostati ad ogni nuovo commit.
+Sono puntatori mobili a commit: a ogni nuovo commit avanza il branch corrente.
 
 Servono a separare diversi filoni di sviluppo e ad integrare i contributi di altri.
 
@@ -353,13 +370,15 @@ Creare un branch:
 
     $ git branch fix/bug-123
 
-Visualizzare tutti i branch:
+Visualizzare i branch locali (**-a** include anche i riferimenti remoti):
 
     $ git branch [-a] [-v]
 
 Cancellare un branch locale:
 
-    $ git branch -d [--force] fix/bug-123
+    $ git branch -d fix/bug-123
+
+Spostatevi prima su un altro branch. **-d** verifica che il lavoro sia integrato nell’upstream configurato (o in HEAD, se manca); **-D** forza la cancellazione e può far perdere il riferimento a lavoro non integrato.
 
 -----
 
@@ -383,11 +402,11 @@ Creare e spostarsi in un singolo comando (può essere usato solo se il branch no
 
 ## Branches: approfondiamo
 
-* **master** è solamente un default (di norma si considera master "stabile")
+* **main** e **master** sono nomi convenzionali: il branch principale e la sua stabilità dipendono dal progetto
 
-* dare [nomi significativi](http://www.guyroutledge.co.uk/blog/git-branch-naming-conventions/); usate prefissi come *bugfix/*, *fix/*, *improvement/*, *feature/*, *task/*) e issue di riferimento
+* dare [nomi significativi](http://www.guyroutledge.co.uk/blog/git-branch-naming-conventions/); usate prefissi come *bugfix/*, *fix/*, *improvement/*, *feature/*, *task/* e issue di riferimento
 
-* prendete l'abitudine, **tutte** le volte che sviluppate un fix o una nuova feature, di farlo in un nuovo branch (che di norma partirà da *master*)
+* prendete l'abitudine, **tutte** le volte che sviluppate un fix o una nuova feature, di farlo in un nuovo branch (che di norma partirà da *main*)
 
 * possono essere logicamente suddivise: *feature* (o *topic*), *release*, *integration* branches e così via
 
@@ -402,7 +421,7 @@ Creare e spostarsi in un singolo comando (può essere usato solo se il branch no
 
 <img style="width:300px" src="images/branch-commit.png" data-action="zoom">
 
-    $ git checkout master
+    $ git checkout main
     $ git merge fix/bug-123
 
 <img style="width:300px" src="images/branch-ff.png" data-action="zoom">
@@ -413,9 +432,9 @@ Creare e spostarsi in un singolo comando (può essere usato solo se il branch no
 
 **fast-forward**!
 
-master era più indietro rispetto a fix/bug-123, e quindi abbiamo semplicemente spostato il puntatore master. Non è stato neppure creato un nuovo commit.
+main era più indietro rispetto a fix/bug-123, e quindi abbiamo semplicemente spostato il puntatore main. Non è stato neppure creato un nuovo commit.
 
-Il comando commit ha le opzioni **--ff-only** e **--no-ff** per decidere come comportarsi.
+Il comando **git merge** offre **--ff-only** (rifiuta il merge se serve un commit di merge) e **--no-ff** (crea un commit di merge anche quando sarebbe possibile un fast-forward).
 
 -----
 
@@ -427,7 +446,7 @@ Il comando commit ha le opzioni **--ff-only** e **--no-ff** per decidere come co
     $ git add file.txt
     $ git commit
 
-    $ git checkout master
+    $ git checkout main
     $ # editiamo file.txt in maniera differente, sulle stesse righe
     $ git add file.txt
     $ git commit
@@ -436,7 +455,7 @@ Il comando commit ha le opzioni **--ff-only** e **--no-ff** per decidere come co
 
 ### Bonus track
 
-* quali commit fanno parte del branch fix/bug-123 e quali di master?
+* quali commit fanno parte del branch fix/bug-123 e quali di main?
 
 -----
 
@@ -457,9 +476,11 @@ Mergiamo:
 
 -----
 
-## Conflict files
+## File in conflitto
 
-Cercare sempre tutti i markers **<<<<<<<**, **=======**, **>>>>>>>**
+Usate **git status** per elencare i conflitti. Nei conflitti di contenuto, scegliete il risultato corretto e rimuovete i marcatori **<<<<<<<**, **=======**, **>>>>>>>**; poi **git add** e **git commit**.
+
+Non tutti i conflitti hanno marcatori (ad esempio file eliminati o binari). Per annullare il merge: **git merge --abort**. Iniziate con working directory e staging area pulite.
 
 <br />
 
@@ -478,36 +499,37 @@ Cercare sempre tutti i markers **<<<<<<<**, **=======**, **>>>>>>>**
 
 ### Bonus track
 
-* **origin** è solamente un default
-* si può fare il checkout di un branch remoto con **remote/branch** (e.g.: *git checkout origin/fix/bug-123*)
+* **origin** è il nome convenzionale assegnato da clone; se esiste già, non ripetete **git remote add origin**
+* dopo il fetch, **git checkout --track origin/fix/bug-123** crea un branch locale collegato a quello remoto; **git checkout origin/fix/bug-123** porta invece in *detached HEAD*
 
 -----
 
 ## Fetch & pull
 
-Aggiornare il repository locale con i dati di un remoto:
+Scaricare dati e aggiornare i riferimenti remoti locali, senza modificare il branch corrente o i file di lavoro:
 
     $ git fetch --prune origin
 
-Commit che divergono tra il master locale e quello remoto:
+Commit che divergono tra il main locale e quello remoto:
 
-    $ git log --left-right master...origin/master
+    $ git log --left-right main...origin/main
 
-Scaricare gli aggiornamenti dal remoto e mergiare il branch corrente:
+Scaricare gli aggiornamenti e integrare origin/main nel branch corrente (qui assumiamo di essere su main):
 
-    $ git pull origin
+    $ git pull --no-rebase origin main
 
 <br />
 
 ### Bonus track
 
-* **git pull** è identico a **git fetch ; git merge**
+* **git pull** esegue fetch e poi integra: **--no-rebase** usa merge, **--rebase** usa rebase, **--ff-only** accetta solo fast-forward; senza opzioni il comportamento dipende anche dalla configurazione
+* **--prune** elimina i riferimenti remoti locali ai branch cancellati sul server, non i vostri branch locali
 
 -----
 
 ## Branches locali e remoti
 
-* **local branch**: un branch che avete solo in locale
+* **local branch**: un riferimento locale su cui lavorate, che può avere un corrispondente sul remoto
 
 * **remote branch**: un branch che esiste su un repository remoto
 
@@ -515,7 +537,7 @@ Scaricare gli aggiornamenti dal remoto e mergiare il branch corrente:
 
 * **local tracking branch**: un branch locale su cui è possibile lavorare direttamente, che traccia un altro branch (di norma, un remote tracking branch)
 
-* il local tracking di branch remoti viene effettuato in automatico, in base al nome del branch: se nel repository remoto esiste *origin/branch-1*, il comando *git checkout branch-1* crea un local tracking branch che traccia il remote tracking branch *origin/branch-1*
+* se *branch-1* non esiste in locale e un solo remoto ha quel nome, **git checkout branch-1** normalmente crea il branch locale con upstream **origin/branch-1**. Forma esplicita: **git checkout --track origin/branch-1**
 
 -----
 
@@ -527,7 +549,7 @@ Aggiungere al repository remoto un branch locale:
 
 Inviare i cambiamenti locali ad un branch remoto:
 
-    $ git push [--tags] [origin [master]]
+    $ git push [--tags] [origin [main]]
 
 <br />
 
@@ -564,7 +586,7 @@ Nello scegliere un workflow dovrete rispondere ad alcune domande, quali:
 
 <!-- .slide: class="align-left" -->
 
-## Worflows: le alternative
+## Workflow: le alternative
 
 I principali sono:
 
@@ -583,7 +605,7 @@ Valide risorse:
 
 ## Forking workflow
 
-Vediamo il **forking workflow**. Non perché sia intrinsecamente il migliore, ma perché quello più diffuso nello sviluppo su piattaforme come Github. Presupposti:
+Vediamo il **forking workflow**. Non perché sia intrinsecamente il migliore, ma perché è comune nei contributi a progetti su piattaforme come GitHub. Presupposti:
 
 * esiste un repository ufficiale (che, dal punto di vista di un developer, chiameremo **upstream**) di riferimento su cui solo gli autori principali possono scrivere
 * ruolo di **project maintainer**: la persona che si occuperà di mergiare nel repository upstream
@@ -612,7 +634,7 @@ Il developer ora:
 
 ### Bonus track
 
-* un fork altro non è che un clone (--mirror) di un repository, sempre ospitato sul sito remoto
+* un fork è una copia del repository sul servizio di hosting, collegata al progetto originale dalla piattaforma; non è un comando Git né equivale necessariamente a **clone --mirror**
 
 -----
 
@@ -630,12 +652,12 @@ Developer fa un **clone** locale del proprio repository remoto. È una buona ide
 
 ## Forking workflow: iniziamo lo sviluppo
 
-Developer deve sviluppare un fix che andrà applicato sul branch master del repository upstream.
+Developer deve sviluppare un fix che andrà applicato sul branch main del repository upstream.
 
-Prima di tutto è opportuno sincronizzare il proprio branch master con quello upstream, in modo da lavorare su codice recente:
+Prima di tutto è opportuno sincronizzare il proprio branch main con quello upstream, in modo da lavorare su codice recente:
 
-    $ git checkout master
-    $ git pull upstream master
+    $ git checkout main
+    $ git pull --ff-only upstream main
 
 <img style="width:300px" src="images/worflow-developer-pull-upstream.png" data-action="zoom">
 
@@ -649,13 +671,14 @@ Prima di tutto è opportuno sincronizzare il proprio branch master con quello up
 
 ### Bonus track
 
-* **MAI** lavorare direttamente su *master*: perdereste la possibilità di sincronizzarlo di nuovo con *upstream*, in futuro
+* in questo workflow lasciate *main* senza commit propri: così l’aggiornamento da *upstream* resta un fast-forward. Se i branch divergono, **--ff-only** si ferma e occorre riconciliarli
 
 -----
 
 ## Forking workflow: lavoriamo
 
     $ # introdurre il fix
+    $ git add file.txt
     $ git commit
     $ git push --set-upstream origin fix/bug-123
 
@@ -671,7 +694,7 @@ Ora va sulla pagina web del proprio fork e crea una **pull request**.
 
 ### Bonus track
 
-* ha senso fare un rebase su *upstream/master* del feature branch su cui stiamo lavorando, prima di creare la pull request (se avete già pushato, servirà un push --force) in modo che il vostro lavoro sia più vicino possibile allo stato attuale di upstream/master
+* se il progetto lo richiede, aggiornate **upstream/main** con **git fetch upstream**, poi fate rebase del feature branch. Se già pubblicato, coordinatevi con chi lo usa: servirà **git push --force-with-lease**, che rifiuta l’aggiornamento se il remoto non corrisponde al valore atteso
 
 -----
 
@@ -679,20 +702,20 @@ Ora va sulla pagina web del proprio fork e crea una **pull request**.
 
 Pull request **NON** è un concetto base di Git (non esattamente, almeno). È qualcosa che vi è stato costruito sopra per facilitare la collaborazione tra sviluppatori.
 
-La pull request creata in precedenza dice: "propongo di applicare i commit del branch *developer:fix/bug-123* a *maintainer:master*"
+La pull request creata in precedenza dice: "propongo di applicare i commit del branch *developer:fix/bug-123* a *maintainer:main*"
 Ora developer, project maintainer e altri possono discuterne.
 
-Se dovesse essere necessario, developer o altri possono aggiungere altri commit semplicemente con un nuovo push.
+Se dovesse essere necessario, developer o altri utenti autorizzati possono aggiungere altri commit semplicemente con un nuovo push.
 
 -----
 
 ## Forking workflow: merging
 
-Una volta soddisfatti, project maintainer potrà effettuare il merge del codice su *maintainer:master*.
+Una volta soddisfatti, project maintainer potrà effettuare il merge del codice su *maintainer:main*.
 
 **Se il merge non presenta conflitti**, lo farà direttamente dalla GUI web sul repository upstream.
 
-Altrimenti dovrà aggiungere un remote che punti al repository di *developer*, fare il fetch di *developer:fix/bug-123*, effettuare il merge su master per poi farne il push sul repository upstream.
+In caso di conflitti, può chiedere al developer di risolverli sul proprio branch, oppure aggiungere un remote che punti al repository di *developer*, fare il fetch di *developer:fix/bug-123*, effettuare il merge su main per poi farne il push sul repository upstream.
 
 <img style="width:300px;" src="images/worflow-maintainer-local-fix.png" data-action="zoom">
 
@@ -700,17 +723,18 @@ Altrimenti dovrà aggiungere un remote che punti al repository di *developer*, f
 
 <!-- .slide: class="align-left" -->
 
-## Forking workflow: bugia!
+## Forking workflow: senza aggiungere un remote
 
-Github e amici non suggeriranno di aggiungere lo sviluppatore come remote, ma di fare direttamente il pull del suo topic branch. È sicuramente più pulito se ricevete molte pull request da tante persone differenti. Se invece il numero di contributori è basso (piccoli progetti, o in ambito lavorativo) ha senso aggiungere i loro repository come remotes.
+Si può integrare un topic branch direttamente dal suo URL. È utile se ricevete contributi occasionali; per collaborazioni ricorrenti può essere comodo aggiungere un remote.
 
-Nel caso di Github, ad esempio:
+Nel caso di GitHub, ad esempio:
 
-1. git checkout -b developer/bug-123 master
-1. git pull https://github.com/developer/repo.git fix/bug-123
-1. git checkout master
+1. git checkout -b developer/bug-123 main
+1. git pull --no-rebase https://github.com/developer/repo.git fix/bug-123
+1. risolvere eventuali conflitti, poi **git add file.txt** e **git commit**
+1. git checkout main
 1. git merge --no-ff developer/bug-123
-1. git push origin master
+1. git push origin main
 
 -----
 
@@ -724,16 +748,17 @@ Nel caso di Github, ad esempio:
 
 1. fork sul web
 1. clone locale del fork: **git clone https://git.lattuga.net/developer/repo.git**
+1. entra nel clone: **cd repo**
 1. aggiunge un remote che punta al repository upstream: **git remote add upstream https://git.lattuga.net/maintainer/repo.git**
 
 -----
 
 ## Forking workflow: sunto sviluppo developer
 
-1. aggiorna il proprio master: **git checkout master ; git pull upstream master**
+1. aggiorna il proprio main: **git checkout main ; git pull --ff-only upstream main**
 1. crea un branch su cui lavorare: **git checkout -b fix/bug-123**
-1. lavora un sacco: **git commit**
-1. opzionalmente, fa il rebase: **git rebase upstream/master**
+1. modifica i file, poi: **git add file.txt** e **git commit**
+1. opzionalmente, aggiorna e fa il rebase: **git fetch upstream**, poi **git rebase upstream/main**
 1. invia le modifiche al proprio repository remoto: **git push --set-upstream origin fix/bug-123**
 1. crea sul web una pull request
 1. se serve, integra il lavoro semplicemente pushando altri commit fatti su fix/bug-123
@@ -750,10 +775,11 @@ Nel caso di Github, ad esempio:
 *Altrimenti:*
 
 1. se non lo ha già fatto, aggiunge un remote per il repository del developer: **git remote add developer https://git.lattuga.net/developer/repo.git**
-1. crea una *local tracking branch* su cui lavorare: **git fetch developer fix/bug-123**
-1. si sposta su master: **git checkout master**
-1. effettua il merge risolvendo i conflitti: **git merge --no-ff fix/bug-123**
-1. invia il master al proprio repository remoto: **git push origin master**
+1. scarica i branch del developer: **git fetch developer**
+1. si sposta su main: **git checkout main**
+1. avvia il merge: **git merge --no-ff developer/fix/bug-123**
+1. se ci sono conflitti, li risolve, poi **git add file.txt** e **git commit**
+1. invia il main al proprio repository remoto: **git push origin main**
 
 ---
 
@@ -775,22 +801,22 @@ Salire di un livello, seguendo il secondo parent commit (in caso di merge):
 
 ### Bonus track
 
-* **detached HEAD**: ci siamo spostati su un commit che non è l'head di un branch
+* **detached HEAD**: HEAD punta direttamente a un commit anziché a un branch; per conservare nuovi commit, create un branch con **git checkout -b nome**
 * questi operatori sono concatenabili: HEAD~~^2
 
 -----
 
 ## Referenziare i commit: range
 
-**Double dot range**. Usando *diff* mostra i cambiamenti tra "master" e "branch"; usando *log* mostra i commit raggiungibili da "branch" ma non da "master":
+**Double dot range**. Usando *diff* mostra i cambiamenti tra "main" e "branch"; usando *log* mostra i commit raggiungibili da "branch" ma non da "main":
 
-    $ git diff master..branch
+    $ git diff main..branch
 
 <br />
 
-**Triple dot range**. Usando *diff* mostra la differenza tra il punto di biforcazione tra "master" e "branch" e "branch" stesso; usando *log* mostra i commit raggiungibili da "master" o "branch", ma non da entrambi:
+**Triple dot range**. Usando *diff* mostra la differenza tra il punto di biforcazione tra "main" e "branch" e "branch" stesso; usando *log* mostra i commit raggiungibili da "main" o "branch", ma non da entrambi:
 
-    $ git log --left-right master...branch
+    $ git log --left-right main...branch
 
 -----
 
@@ -805,10 +831,13 @@ Vedere anche [questa spiegazione](https://stackoverflow.com/questions/7251477/wh
 
 ## Rimettere insieme i pezzi: cherry-pick
 
-    $ git checkout master
+    $ git checkout main
     $ git cherry-pick <commit>
-    $ # in caso di conflitti:
+    $ # solo in caso di conflitti: risolviamoli nei file
+    $ git add file.txt
     $ git cherry-pick --continue
+
+Per annullare l’operazione in corso: **git cherry-pick --abort**.
 
 <img style="width:300px" src="images/cherry-pick.png" data-action="zoom">
 
@@ -832,16 +861,18 @@ Ad esempio per backportare un fix su diversi release branch, o se vi siete accor
 Poniamoci nella stessa situazione divergente dell'esempio in cui abbiamo usato merge, e poi:
 
     $ git checkout fix/bug-123
-    $ git rebase master
-    $ # risolviamo eventuali conflitti
+    $ git rebase main
+    $ # solo in caso di conflitti: risolviamoli nei file
+    $ git add file.txt
     $ git rebase --continue
+
+Ripetete se altri commit producono conflitti. Per annullare: **git rebase --abort**.
 
 <img style="width:300px" src="images/rebase.png" data-action="zoom">
 
 ### Cosa è successo?
 
-Abbiamo preso tutti i commit di fix/bug-123 e li abbiamo ri-applicati su master, che nel mentre era andato avanti.
-Tutti i commit specifici di fix/bug-123 sono cambiati. Volendo, ora si può fare un merge fast-forward in master.
+Nell’esempio, i commit esclusivi di fix/bug-123 sono stati riapplicati a partire da main e hanno nuovi hash. Il branch main non si è spostato: tornando su main, ora possiamo integrarlo con **git merge --ff-only fix/bug-123**.
 
 -----
 
@@ -861,7 +892,7 @@ Un rebase modifica i commit originali del branch: questo va evitato se quei comm
 
 Creiamo un nuovo branch e committiamo 2 o 3 modifiche.  Poi:
 
-    $ git rebase -i master
+    $ git rebase -i main
 
 <img style="width:300px" src="images/rebase-interactive.png" data-action="zoom">
 
@@ -877,7 +908,7 @@ Abbiamo accorpato, scartato o invertito l'ordine dei commit.
 
 ### Bonus track
 
-* l'opzione nucleare: **filter-branch** per creare script che riscrivono la history.
+* per riscritture estese, la documentazione Git sconsiglia **filter-branch** e rimanda a **git-filter-repo** (strumento esterno).
 
 ---
 
@@ -897,24 +928,26 @@ Ad esempio quando non si vuole includere in un commit una riga di debug, che per
 
 ## Creare e applicare patch
 
-è possibile creare una patch usando il comando:
+Per esportare l’ultimo commit come patch, con autore e messaggio:
 
-    $ git format-patch [refs]
+    $ git format-patch -1 HEAD --stdout > modifica.patch
 
-per poi applicarla con:
+Per applicarla creando un commit con autore e messaggio originali:
 
-    $ git apply patch-file.diff
+    $ git am modifica.patch
+
+Per sole modifiche non staged: **git diff > modifica.diff**, poi **git apply modifica.diff**. Quest’ultimo modifica i file senza creare commit.
 
 -----
 
 ## Mettere il lavoro da parte: stash
 
-Mettere da parte il lavoro nella working directory senza committare, e mostrare le modifiche stashed:
+Accantonare le modifiche ai file tracciati, incluse quelle staged, e mostrare gli stash. Per includere gli untracked usate **git stash -u** (i file ignorati restano esclusi):
 
     $ git stash
     $ git stash list
 
-Riapplicare una modifica messa in stash, ed eliminarne uno (**stash pop** combina i due comandi):
+Riapplicare uno stash e, dopo aver verificato il risultato, eliminarlo (**stash pop** fa entrambe le cose, ma conserva lo stash se ci sono conflitti):
 
     $ git stash apply stash@{0}
     $ git stash drop stash@{0}
@@ -927,18 +960,19 @@ Ad esempio quando vogliamo passare ad un altro branch, accantonando le modifiche
 
 ## Storico dei cambiamenti: reflog
 
-La history mostra solo i commit inclusi in un branch.
+**git log** segue i genitori dei commit dai riferimenti scelti. Il **reflog** registra invece gli aggiornamenti locali dei riferimenti, inclusi gli spostamenti di HEAD:
 
-Per vedere TUTTI gli spostamenti di HEAD:
+    $ git reflog
+    $ git show "HEAD@{2 weeks ago}"
 
-    $ git reflog [@{2 weeks ago}]
+È locale, non viene trasferito con push o clone e le sue voci scadono: non garantisce un recupero permanente.
 
 <br />
 
 ### Quando usarlo?
 
 * a volte è utile capire come ci siamo mossi tra i branch
-* fondamentale per recuperare i **broken commits** (non referenziati da alcun branch)
+* per recuperare un commit non più raggiungibile da un branch: individuate l’hash nel reflog, poi **`git branch recupero <hash>`**; non recupera modifiche mai salvate in Git
 
 ---
 
@@ -985,7 +1019,7 @@ Per vedere TUTTI gli spostamenti di HEAD:
 
 ---
 
-## The end
+## Fine
 
 <br />
 
