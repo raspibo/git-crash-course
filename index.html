@@ -1,42 +1,31 @@
-<html>
-	<head>
-		<link rel="stylesheet" href="reveal.js/css/reveal.css">
-		<link rel="stylesheet" href="css/zoom.css">
-		<link rel="stylesheet" href="reveal.js/css/theme/white.css">
-		<link rel="stylesheet" href="css/git-crash-course.css">
-        <title>Git crash course</title>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-                <section data-markdown="git-crash-course.md" data-separator-vertical="^\r?\n-----\r?\n$"></section>
-			</div>
-		</div>
-		<script src="js/head.min.js"></script>
-		<script src="reveal.js/js/reveal.js"></script>
-		<script src="js/jquery-3.2.1.min.js"></script>
-		<script src="js/transition.js"></script>
-		<script src="js/zoom.min.js"></script>
-        <script>
-Reveal.initialize({
-    width: "100%",
-	height: "100%",
-	margin: 0.1,
-	minScale: 1,
-	maxScale: 1,
-    slideNumber: true,
-    history: true,
-    center: false,
-    dependencies: [
-		{ src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-		{ src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-		{ src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-		{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-		{ src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
-		{ src: 'reveal.js/plugin/notes/notes.js', async: true },
-		{ src: 'reveal.js/plugin/math/math.js', async: true }
-	]
-});
-		</script>
-	</body>
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Git crash course</title>
+    <link rel="stylesheet" href="reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="reveal.js/dist/theme/white.css">
+    <link rel="stylesheet" href="reveal.js/dist/plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="css/git-crash-course.css">
+    <link rel="stylesheet" href="css/zoom.css">
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section data-markdown="git-crash-course.md" data-separator-vertical="^\r?\n-----\r?\n$"></section>
+        </div>
+    </div>
+    <dialog class="image-zoom" aria-label="Immagine ingrandita">
+        <button type="button" autofocus aria-label="Chiudi immagine ingrandita">Chiudi ×</button>
+        <img alt="">
+    </dialog>
+    <script src="reveal.js/dist/reveal.js"></script>
+    <script src="reveal.js/dist/plugin/markdown.js"></script>
+    <script src="reveal.js/dist/plugin/highlight.js"></script>
+    <script src="reveal.js/dist/plugin/zoom.js"></script>
+    <script src="reveal.js/dist/plugin/notes.js"></script>
+    <script src="js/slides.js"></script>
+</body>
 </html>

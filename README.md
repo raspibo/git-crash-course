@@ -26,6 +26,22 @@ Il launcher serve direttamente i file del progetto, senza copiarli o creare
 collegamenti nel sottomodulo. Per pubblicare le slides su un server statico,
 includete anche il sottomodulo reveal.js inizializzato.
 
+## Presentazione
+
+Il sottomodulo è fissato a [reveal.js 6.0.2](https://github.com/hakimel/reveal.js/releases/tag/6.0.2).
+I plugin Markdown, evidenziazione del codice, zoom e note vengono caricati dai
+file compilati in `reveal.js/dist/`. Non servono dipendenze npm.
+
+Usate le frecce per navigare; l'indirizzo conserva la slide corrente.
+Cliccate un diagramma per ingrandirlo, oppure selezionatelo con Tab e premete
+Invio. Esc o il pulsante «Chiudi» chiudono l'immagine. Ctrl/Cmd-clic apre
+l'immagine in un'altra scheda. Lo zoom delle immagini usa un dialogo HTML
+nativo e richiede un browser moderno, senza jQuery o Bootstrap.
+
+La vista desktop affianca testo e diagramma nella slide sugli stati dei file;
+sugli schermi piccoli li dispone in una colonna e consente lo scorrimento
+dei contenuti lunghi.
+
 ## Oppure...
 
 Le slides sono in formato markdown, e possono essere [visualizzate direttamente](git-crash-course.md)

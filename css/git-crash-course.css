@@ -1,15 +1,59 @@
-.slides {
-    margin-top: 5px !important;
+.reveal {
+    --r-main-font-size: 28px;
+    overflow-wrap: anywhere;
 }
 
-.two-cols ul, .two-cols h3 {
-    float: left;
-}
-
-.align-left {
+.reveal .slides section.align-left {
     text-align: left;
 }
 
-.align-left h2, h3 {
+.reveal .slides .align-left h2,
+.reveal .slides .align-left h3 {
     text-align: center;
+}
+
+.reveal .slides section.two-cols {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    column-gap: 24px;
+    align-items: start;
+}
+
+.two-cols > * {
+    grid-column: 1 / -1;
+}
+
+.two-cols > ul {
+    grid-column: 1;
+}
+
+.two-cols > .image-zoom-trigger {
+    grid-column: 2;
+    align-self: center;
+}
+
+@media (max-width: 600px) {
+    .reveal {
+        --r-main-font-size: 24px;
+        --r-heading2-size: 1.6em;
+        --r-heading3-size: 1.3em;
+    }
+
+    .reveal .slides section:not(.stack) {
+        max-height: 100%;
+        overflow-y: auto;
+    }
+
+    .reveal .slides section.two-cols {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .two-cols > .image-zoom-trigger {
+        grid-column: 1;
+        justify-self: center;
+    }
+}
+
+.reveal .slides a {
+    overflow-wrap: anywhere;
 }
